@@ -8,4 +8,6 @@ public class InsurancePolicy {
     private InsuranceType insuranceType;
     private Agent agent;
     private Customer customer;
+
+
 }
