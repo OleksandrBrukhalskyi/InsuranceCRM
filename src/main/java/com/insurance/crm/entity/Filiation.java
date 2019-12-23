@@ -67,4 +67,16 @@ public class Filiation {
     public void setInsurancePolicy(InsurancePolicy insurancePolicy) {
         this.insurancePolicy = insurancePolicy;
     }
+
+    @Override
+    public String toString() {
+        return "Filiation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", agent=" + agent +
+                ", insurancePolicy=" + insurancePolicy +
+                '}';
+    }
 }

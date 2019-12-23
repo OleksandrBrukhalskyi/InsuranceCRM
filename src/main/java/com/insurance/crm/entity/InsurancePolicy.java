@@ -77,4 +77,17 @@ public class InsurancePolicy {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    @Override
+    public String toString() {
+        return "InsurancePolicy{" +
+                "id=" + id +
+                ", signDate='" + signDate + '\'' +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", filiation=" + filiation +
+                ", insuranceType=" + insuranceType +
+                ", agent=" + agent +
+                ", customer=" + customer +
+                '}';
+    }
 }

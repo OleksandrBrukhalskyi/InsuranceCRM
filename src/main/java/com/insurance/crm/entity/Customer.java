@@ -77,4 +77,17 @@ public class Customer {
     public void setInsurancePolicy(InsurancePolicy insurancePolicy) {
         this.insurancePolicy = insurancePolicy;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", homeAddress='" + homeAddress + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", insurancePolicy=" + insurancePolicy +
+                '}';
+    }
 }

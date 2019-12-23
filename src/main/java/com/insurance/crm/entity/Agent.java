@@ -29,4 +29,12 @@ public class Agent extends User {
     public void setInsurancePolicy(InsurancePolicy insurancePolicy) {
         this.insurancePolicy = insurancePolicy;
     }
+
+    @Override
+    public String toString() {
+        return "Agent{" +
+                "filiation=" + filiation +
+                ", insurancePolicy=" + insurancePolicy +
+                '}';
+    }
 }
