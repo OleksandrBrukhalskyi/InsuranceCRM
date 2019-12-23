@@ -1,4 +1,6 @@
-package com.insurance.crm;
+package com.insurance.crm.entity;
+
+import com.insurance.crm.entity.enums.Role;
 
 import java.util.Set;
 

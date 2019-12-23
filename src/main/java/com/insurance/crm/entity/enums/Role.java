@@ -1,4 +1,4 @@
-package com.insurance.crm;
+package com.insurance.crm.entity.enums;
 
 public enum Role {
     USER,
