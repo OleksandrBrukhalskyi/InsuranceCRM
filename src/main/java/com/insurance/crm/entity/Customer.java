@@ -1,5 +1,4 @@
 package com.insurance.crm.entity;
 
-public class Filiation {
-
+public class Customer {
 }
