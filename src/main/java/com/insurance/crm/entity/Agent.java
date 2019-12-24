@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 @Entity
 @Data
@@ -20,7 +21,7 @@ public class Agent extends User {
     @ManyToOne
     private Filiation filiation;
     @OneToMany(mappedBy = "agent")
-    private InsurancePolicy insurancePolicy;
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }

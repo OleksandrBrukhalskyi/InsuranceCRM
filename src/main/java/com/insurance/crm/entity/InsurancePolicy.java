@@ -19,13 +19,13 @@ public class InsurancePolicy {
     private String signDate;
     @Column(nullable = false,length = 10)
     private String expiryDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Filiation filiation;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private InsuranceType insuranceType;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Agent agent;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
 
