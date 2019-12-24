@@ -21,7 +21,7 @@ public class InsurancePolicy {
     private String expiryDate;
     @ManyToOne(fetch = FetchType.LAZY)
     private Filiation filiation;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "insurance_policy",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private InsuranceType insuranceType;
     @ManyToOne(fetch = FetchType.LAZY)
     private Agent agent;

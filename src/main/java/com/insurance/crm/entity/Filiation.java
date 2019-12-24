@@ -21,9 +21,9 @@ public class Filiation {
     private String address;
     @Column(nullable = false,length = 30)
     private String phone;
-    @OneToMany(mappedBy = "filiation")
+    @OneToMany(mappedBy = "filiation",cascade = CascadeType.ALL)
     private List<Agent> agents;
-    @OneToMany(mappedBy = "filiation")
+    @OneToMany(mappedBy = "filiation",cascade = CascadeType.ALL)
     private InsurancePolicy insurancePolicy;
 
 
