@@ -1,6 +1,7 @@
 package com.insurance.crm.entity;
 
 import com.insurance.crm.entity.enums.Role;
+import com.insurance.crm.entity.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,8 +34,8 @@ public class User {
     private String password;
     @Column(nullable = false, length = 2)
     private Integer age;
-    @Column(name = "is_active",nullable = false)
-    private boolean active;
+    @Enumerated(value = EnumType.STRING)
+    private UserStatus userStatus;
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
