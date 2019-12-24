@@ -1,82 +1,30 @@
 package com.insurance.crm.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 public class Filiation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false,length = 30)
     private String name;
+    @Column(nullable = false,length = 30)
     private String address;
+    @Column(nullable = false,length = 30)
     private String phone;
-    private Agent agent;
+    @OneToMany(mappedBy = "filiation")
+    private List<Agent> agents;
+    @OneToMany(mappedBy = "filiation")
     private InsurancePolicy insurancePolicy;
 
-    public Filiation(Long id, String name, String address, String phone, Agent agent, InsurancePolicy insurancePolicy) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.agent = agent;
-        this.insurancePolicy = insurancePolicy;
-    }
 
-    public Filiation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Agent getAgent() {
-        return agent;
-    }
-
-    public void setAgent(Agent agent) {
-        this.agent = agent;
-    }
-
-    public InsurancePolicy getInsurancePolicy() {
-        return insurancePolicy;
-    }
-
-    public void setInsurancePolicy(InsurancePolicy insurancePolicy) {
-        this.insurancePolicy = insurancePolicy;
-    }
-
-    @Override
-    public String toString() {
-        return "Filiation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", agent=" + agent +
-                ", insurancePolicy=" + insurancePolicy +
-                '}';
-    }
 }

@@ -1,93 +1,32 @@
 package com.insurance.crm.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
+@Table(name="customers")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false,length = 30)
     private String surname;
+    @Column(nullable = false,length = 30)
     private String firstname;
+    @Column(nullable = false,length = 30)
     private String patronymic;
+    @Column(nullable = false,length = 30)
     private String homeAddress;
+    @Column(nullable = false,length = 30)
     private String phoneNum;
+    @OneToMany(mappedBy = "customer")
     private InsurancePolicy insurancePolicy;
 
-    public Customer(Long id, String surname, String firstname, String patronymic, String homeAddress, String phoneNum, InsurancePolicy insurancePolicy) {
-        this.id = id;
-        this.surname = surname;
-        this.firstname = firstname;
-        this.patronymic = patronymic;
-        this.homeAddress = homeAddress;
-        this.phoneNum = phoneNum;
-        this.insurancePolicy = insurancePolicy;
-    }
 
-    public Customer() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public InsurancePolicy getInsurancePolicy() {
-        return insurancePolicy;
-    }
-
-    public void setInsurancePolicy(InsurancePolicy insurancePolicy) {
-        this.insurancePolicy = insurancePolicy;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", surname='" + surname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", homeAddress='" + homeAddress + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", insurancePolicy=" + insurancePolicy +
-                '}';
-    }
 }

@@ -1,10 +1,7 @@
 package com.insurance.crm.entity;
 
 import com.insurance.crm.entity.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.aspectj.lang.annotation.DeclareAnnotation;
 
 import javax.persistence.Entity;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Table(name = "agents")
 public class Agent extends User {
