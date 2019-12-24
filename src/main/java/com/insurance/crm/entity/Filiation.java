@@ -24,7 +24,7 @@ public class Filiation {
     @OneToMany(mappedBy = "filiation",cascade = CascadeType.ALL)
     private List<Agent> agents;
     @OneToMany(mappedBy = "filiation",cascade = CascadeType.ALL)
-    private InsurancePolicy insurancePolicy;
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }
