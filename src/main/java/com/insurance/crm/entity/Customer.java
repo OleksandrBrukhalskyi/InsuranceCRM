@@ -16,15 +16,15 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 30)
+    @Column(name = "surname",nullable = false,length = 30)
     private String surname;
-    @Column(nullable = false,length = 30)
+    @Column(name = "firstname",nullable = false,length = 30)
     private String firstname;
-    @Column(nullable = false,length = 30)
+    @Column(name = "patronymic",nullable = true,length = 30)
     private String patronymic;
-    @Column(nullable = false,length = 30)
+    @Column(name = "home_address",nullable = false,length = 30)
     private String homeAddress;
-    @Column(nullable = false,length = 30)
+    @Column(name = "phone_num",nullable = false,length = 30)
     private String phoneNum;
     @OneToMany(cascade = CascadeType.ALL)
     private List<InsurancePolicy> insurancePolicies;
