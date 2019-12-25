@@ -3,6 +3,7 @@ package com.insurance.crm.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,7 +27,7 @@ public class Customer {
     @Column(nullable = false,length = 30)
     private String phoneNum;
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private InsurancePolicy insurancePolicy;
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }

@@ -34,7 +34,6 @@ public class User {
     private String password;
     @Column(nullable = false, length = 2)
     private Integer age;
-    @ElementCollection(targetClass = UserStatus.class,fetch = FetchType.EAGER)
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
