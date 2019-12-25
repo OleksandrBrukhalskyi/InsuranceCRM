@@ -42,7 +42,7 @@ public class Agent {
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "agent")
     private List<InsurancePolicy> insurancePolicies;
 
 
