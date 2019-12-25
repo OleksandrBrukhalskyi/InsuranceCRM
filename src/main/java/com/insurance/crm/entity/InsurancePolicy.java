@@ -15,9 +15,9 @@ public class InsurancePolicy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 10)
+    @Column(name = "sign_date",nullable = false,length = 10)
     private String signDate;
-    @Column(nullable = false,length = 10)
+    @Column(name = "expiry_date",nullable = false,length = 10)
     private String expiryDate;
     @ManyToOne(fetch = FetchType.LAZY)
     private Filiation filiation;
