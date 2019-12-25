@@ -19,7 +19,8 @@ public class InsurancePolicy {
     private String signDate;
     @Column(name = "expiry_date",nullable = false,length = 10)
     private String expiryDate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private InsuranceType insuranceType;
