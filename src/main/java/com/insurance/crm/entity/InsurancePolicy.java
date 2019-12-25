@@ -23,9 +23,11 @@ public class InsurancePolicy {
     private Filiation filiation;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private InsuranceType insuranceType;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "agent_id",nullable = false)
     private Agent agent;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
 
 
