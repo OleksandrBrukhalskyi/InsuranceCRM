@@ -15,11 +15,11 @@ public class Filiation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 30)
+    @Column(name = "name",nullable = false,length = 30)
     private String name;
-    @Column(nullable = false,length = 30)
+    @Column(name = "address",nullable = false,length = 30)
     private String address;
-    @Column(nullable = false,length = 30)
+    @Column(name = "phone",nullable = false,length = 30)
     private String phone;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Agent> agents;
