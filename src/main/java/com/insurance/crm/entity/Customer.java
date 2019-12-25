@@ -26,7 +26,7 @@ public class Customer {
     private String homeAddress;
     @Column(nullable = false,length = 30)
     private String phoneNum;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<InsurancePolicy> insurancePolicies;
 
 

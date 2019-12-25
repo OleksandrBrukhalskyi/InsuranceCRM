@@ -20,7 +20,7 @@ public class InsuranceType {
     private double sumInsured;
     @Column(nullable = false,length = 4)
     private String tag;
-    @OneToOne(mappedBy = "insurance_type",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private InsurancePolicy insurancePolicy;
 
 
