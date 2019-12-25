@@ -1,4 +1,7 @@
 package com.insurance.crm.repository;
 
-public interface UserRepository {
+import com.insurance.crm.entity.Agent;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<Agent,Long> {
 }
