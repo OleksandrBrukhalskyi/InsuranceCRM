@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
+
 @Table(name = "agents")
 public class Agent extends User {
     @ManyToOne(fetch = FetchType.LAZY)
