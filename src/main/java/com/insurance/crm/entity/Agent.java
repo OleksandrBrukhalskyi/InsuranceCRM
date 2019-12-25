@@ -42,8 +42,8 @@ public class Agent {
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<InsurancePolicy> insurancePolicies;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "")
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }

@@ -21,10 +21,10 @@ public class Filiation {
     private String address;
     @Column(name = "phone",nullable = false,length = 30)
     private String phone;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Agent> agents;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<InsurancePolicy> insurancePolicies;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Agent> agents;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }

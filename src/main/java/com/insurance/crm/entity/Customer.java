@@ -26,8 +26,8 @@ public class Customer {
     private String homeAddress;
     @Column(name = "phone_num",nullable = false,length = 30)
     private String phoneNum;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<InsurancePolicy> insurancePolicies;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<InsurancePolicy> insurancePolicies;
 
 
 }
