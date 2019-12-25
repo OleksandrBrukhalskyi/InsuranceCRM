@@ -14,11 +14,11 @@ public class InsuranceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 40)
+    @Column(name="name",nullable = false,length = 40)
     private String name;
-    @Column(nullable = false,length = 15)
+    @Column(name = "sum_insured",nullable = false,length = 15)
     private double sumInsured;
-    @Column(nullable = false,length = 4)
+    @Column(name = "tag",nullable = false,length = 4)
     private String tag;
     @OneToOne(cascade = CascadeType.ALL)
     private InsurancePolicy insurancePolicy;
