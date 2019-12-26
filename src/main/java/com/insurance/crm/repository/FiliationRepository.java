@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FiliationRepository extends JpaRepository<Filiation,Long> {
+    Filiation findByName(String name);
 }
 
