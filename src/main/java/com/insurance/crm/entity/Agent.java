@@ -3,7 +3,6 @@ package com.insurance.crm.entity;
 import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.entity.enums.UserStatus;
 import lombok.*;
-import org.aspectj.lang.annotation.DeclareAnnotation;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Set;
 @ToString
 @Builder
 @Table(name = "agents")
-public class Customer {
+public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
