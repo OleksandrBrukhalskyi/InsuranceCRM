@@ -3,7 +3,6 @@ package com.insurance.crm.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.xml.ws.BindingType;
 
 @Entity
 @Data

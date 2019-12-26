@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString
 @Builder
 @Table(name = "agents")
-public class Agent {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
