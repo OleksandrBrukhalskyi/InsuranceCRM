@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicy,Long> {
+    InsurancePolicy findInsurancePolicyBySignDate(String sign_date);
 }
