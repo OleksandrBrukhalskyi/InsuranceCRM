@@ -1,6 +1,6 @@
 package com.insurance.crm.dto.policy;
 
-import com.insurance.crm.dto.agent.AgentDto;
+import com.insurance.crm.dto.agent.AgentCreationDto;
 import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.dto.filiation.FiliationDto;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InsurancePolicyDto {
+public class InsurancePolicyCreationDto {
     @NotBlank
     private Long id;
     @NotBlank
@@ -22,7 +22,7 @@ public class InsurancePolicyDto {
     @NotBlank
     private FiliationDto filiationDto;
     @NotBlank
-    private AgentDto agentDto;
+    private AgentCreationDto agentDto;
     @NotBlank
     private CustomerDto customerDto;
 }
