@@ -1,7 +1,7 @@
 package com.insurance.crm.entity;
 
 import com.insurance.crm.entity.enums.Role;
-import com.insurance.crm.entity.enums.UserStatus;
+import com.insurance.crm.entity.enums.AgentStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,7 +33,7 @@ public class Agent {
     @Column(name = "age",nullable = true, length = 2)
     private Integer age;
     @Enumerated(value = EnumType.STRING)
-    private UserStatus userStatus;
+    private AgentStatus agentStatus;
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="agent_role",joinColumns = @JoinColumn(name = "agent_id"))
     @Enumerated(EnumType.STRING)

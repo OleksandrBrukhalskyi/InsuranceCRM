@@ -1,5 +1,5 @@
 package com.insurance.crm.entity.enums;
 
-public enum UserStatus {
+public enum AgentStatus {
     BLOCKED, DEACTIVATED, ACTIVATED
 }
