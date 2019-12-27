@@ -1,4 +1,9 @@
 package com.insurance.crm.util;
 
-public class DtoModelMapper {
+import javax.persistence.EntityManager;
+
+public class DtoModelMapper  {
+    private EntityManager entityManager;
+
+
 }
