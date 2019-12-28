@@ -4,11 +4,10 @@ import com.insurance.crm.entity.Agent;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Service
+
 public class AgentServiceImpl implements AgentService {
     @Autowired
     AgentRepository agentRepository;
