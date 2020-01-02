@@ -10,6 +10,7 @@ import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.service.AgentService;
+import com.insurance.crm.service.FiliationService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static com.insurance.crm.constant.ErrorMessage.AGENT_NOT_FOUND_BY_ID;
 public class AgentServiceImpl implements AgentService {
     @Autowired
     AgentRepository agentRepository;
+    private FiliationService filiationService;
     private ModelMapper modelMapper;
 
 
@@ -38,13 +40,17 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public Agent update(AgentUpdateDto dto,Long id) {
+
         Agent agent = agentRepository
                 .findById(id)
                 .orElseThrow(() -> new BadIdException(AGENT_NOT_FOUND_BY_ID + id));
         agent.setSurname(dto.getSurname());
         agent.setFirstname(dto.getFirstname());
         agent.setPatronymic(dto.getPatronymic());
-        return null;
+        agent.setPassword(dto.getPassword());
+        agent.setAge(dto.getAge());
+        agent.setFiliation(dto.getFiliation());
+        return agentRepository.save(agent);
     }
 
 

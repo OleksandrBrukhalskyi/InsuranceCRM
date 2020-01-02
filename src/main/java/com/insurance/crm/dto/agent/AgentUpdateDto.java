@@ -1,6 +1,6 @@
 package com.insurance.crm.dto.agent;
 
-import com.insurance.crm.dto.filiation.FiliationDto;
+import com.insurance.crm.entity.Filiation;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -18,5 +18,5 @@ public class AgentUpdateDto {
     @NotBlank
     private Integer age;
 
-    private FiliationDto filiationDto;
+    private Filiation filiation;
 }
