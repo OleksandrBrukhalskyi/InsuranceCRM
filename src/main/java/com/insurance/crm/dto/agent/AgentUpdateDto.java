@@ -16,6 +16,8 @@ public class AgentUpdateDto {
     @NotBlank
     private String password;
     @NotBlank
+    private String email;
+    @NotBlank
     private Integer age;
 
     private Filiation filiation;
