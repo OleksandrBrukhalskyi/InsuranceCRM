@@ -39,11 +39,9 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public Agent update(AgentUpdateDto dto,Long id) {
+    public Agent update(AgentUpdateDto dto,String email) {
 
-        Agent agent = agentRepository
-                .findById(id)
-                .orElseThrow(() -> new BadIdException(AGENT_NOT_FOUND_BY_ID + id));
+        Agent agent = agentRepository.findAgentByEmail(email);
         agent.setSurname(dto.getSurname());
         agent.setFirstname(dto.getFirstname());
         agent.setPatronymic(dto.getPatronymic());
@@ -65,6 +63,11 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
+    public Agent getByEmail(String email) {
+        return agentRepository.findAgentByEmail(email);
+    }
+
+    @Override
     public Agent findByAgentSurname(String surname) {
         return agentRepository.findAgentBySurname(surname);
     }
@@ -82,7 +85,9 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public AgentRoleDto updateRole(Long id, Role role) {
-        return null;
+        Agent agent = getById(id);
+        agent.setRole(role);
+        return modelMapper.map(agentRepository.save(agent),AgentRoleDto.class);
     }
 
 }
