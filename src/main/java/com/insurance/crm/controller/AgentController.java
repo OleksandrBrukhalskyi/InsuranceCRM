@@ -3,6 +3,7 @@ package com.insurance.crm.controller;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.dto.agent.AgentRoleDto;
 import com.insurance.crm.dto.agent.AgentStatusDto;
+import com.insurance.crm.dto.agent.AgentUpdateDto;
 import com.insurance.crm.dto.agent.RoleDto;
 import com.insurance.crm.entity.enums.AgentStatus;
 import com.insurance.crm.service.impl.AgentServiceImpl;
@@ -64,5 +65,21 @@ public class AgentController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(agentService.getRoles());
     }
+    @ApiOperation(value = "Update Agent info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = HttpStatuses.CREATED),
+            @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
+            @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+    })
+    @PutMapping
+    public ResponseEntity updateAgent(@Valid @RequestBody AgentUpdateDto dto,
+                                      @ApiIgnore Principal principal){
+
+        String email = principal.getName();
+        agentService.update(dto,email);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 
 }
