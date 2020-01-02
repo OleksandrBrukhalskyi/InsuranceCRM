@@ -1,13 +1,15 @@
 package com.insurance.crm.controller;
 
-import com.insurance.crm.service.AgentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.insurance.crm.service.impl.AgentServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/agent")
+@AllArgsConstructor
 public class AgentController {
-    @Autowired
-    AgentService agentService;
+    private AgentServiceImpl agentService;
+
+    @ApiOperation
 }
