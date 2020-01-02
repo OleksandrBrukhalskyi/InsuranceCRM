@@ -12,7 +12,7 @@ public class AgentUpdateDto {
     @NotBlank
     private String firstname;
     @NotBlank
-    private String lastname;
+    private String patronymic;
     @NotBlank
     private Integer age;
     @NotBlank

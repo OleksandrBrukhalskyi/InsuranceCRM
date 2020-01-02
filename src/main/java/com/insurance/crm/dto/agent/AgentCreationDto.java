@@ -19,6 +19,10 @@ public class AgentCreationDto {
     @NotBlank
     private String patronymic;
     @NotBlank
+    private String login;
+    @NotBlank
+    private String password;
+    @NotBlank
     private String email;
     @NotBlank
     private Integer age;
