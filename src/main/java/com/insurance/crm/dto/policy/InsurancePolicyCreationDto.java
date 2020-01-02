@@ -1,6 +1,6 @@
 package com.insurance.crm.dto.policy;
 
-import com.insurance.crm.dto.agent.AgentCreationDto;
+import com.insurance.crm.dto.agent.AgentRegistrationDto;
 import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.dto.filiation.FiliationDto;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class InsurancePolicyCreationDto {
     @NotBlank
     private FiliationDto filiationDto;
     @NotBlank
-    private AgentCreationDto agentDto;
+    private AgentRegistrationDto agentDto;
     @NotBlank
     private CustomerDto customerDto;
 }
