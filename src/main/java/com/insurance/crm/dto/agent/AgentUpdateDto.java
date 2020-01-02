@@ -14,7 +14,9 @@ public class AgentUpdateDto {
     @NotBlank
     private String patronymic;
     @NotBlank
-    private Integer age;
+    private String password;
     @NotBlank
+    private Integer age;
+
     private FiliationDto filiationDto;
 }

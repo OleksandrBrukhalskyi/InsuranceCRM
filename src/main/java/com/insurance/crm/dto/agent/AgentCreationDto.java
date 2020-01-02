@@ -1,5 +1,6 @@
 package com.insurance.crm.dto.agent;
 
+import com.insurance.crm.dto.filiation.FiliationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,5 @@ public class AgentCreationDto {
     private String email;
     @NotBlank
     private Integer age;
+    private FiliationDto filiationDto;
 }
