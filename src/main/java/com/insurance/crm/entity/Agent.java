@@ -1,12 +1,14 @@
 package com.insurance.crm.entity;
 
-import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.entity.enums.AgentStatus;
-import lombok.*;
+import com.insurance.crm.entity.enums.Role;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 @Entity
 @Data
 @AllArgsConstructor
@@ -36,12 +38,13 @@ public class Agent {
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="agent_role",joinColumns = @JoinColumn(name = "agent_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    private Role role;
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "agent")
     private List<InsurancePolicy> insurancePolicies;
+
 
 
 }
