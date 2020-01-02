@@ -1,8 +1,12 @@
 package com.insurance.crm.service.impl;
 
+import com.insurance.crm.dto.agent.AgentRoleDto;
 import com.insurance.crm.dto.agent.AgentStatusDto;
+import com.insurance.crm.dto.agent.AgentUpdateDto;
+import com.insurance.crm.dto.agent.RoleDto;
 import com.insurance.crm.entity.Agent;
 import com.insurance.crm.entity.enums.AgentStatus;
+import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.service.AgentService;
@@ -31,9 +35,19 @@ public class AgentServiceImpl implements AgentService {
     public Agent create(Agent agent){
         return agentRepository.save(agent);
     }
-    public Agent update(Agent agent){
-        return agentRepository.save(agent);
+
+    @Override
+    public Agent update(AgentUpdateDto dto,Long id) {
+        Agent agent = agentRepository
+                .findById(id)
+                .orElseThrow(() -> new BadIdException(AGENT_NOT_FOUND_BY_ID + id));
+        agent.setSurname(dto.getSurname());
+        agent.setFirstname(dto.getFirstname());
+        agent.setPatronymic(dto.getPatronymic());
+        return null;
     }
+
+
     public void delete(Long id){
         agentRepository.deleteById(id);
     }
@@ -48,10 +62,21 @@ public class AgentServiceImpl implements AgentService {
     public Agent findByAgentSurname(String surname) {
         return agentRepository.findAgentBySurname(surname);
     }
+    @Override
     public AgentStatusDto updateStatus(Long id, AgentStatus agentStatus){
         Agent agent = getById(id);
         agent.setAgentStatus(agentStatus);
         return modelMapper.map(agentRepository.save(agent),AgentStatusDto.class);
+    }
+
+    @Override
+    public RoleDto getRoles() {
+        return new RoleDto(Role.class.getEnumConstants());
+    }
+
+    @Override
+    public AgentRoleDto updateRole(Long id, Role role) {
+        return null;
     }
 
 }
