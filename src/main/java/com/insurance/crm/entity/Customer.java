@@ -25,6 +25,8 @@ public class Customer {
     private String homeAddress;
     @Column(name = "phone_num",nullable = false,length = 30)
     private String phoneNum;
+    @Column(name = "age",nullable = false,length = 2)
+    private Integer age;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
     private List<InsurancePolicy> insurancePolicies;
 
