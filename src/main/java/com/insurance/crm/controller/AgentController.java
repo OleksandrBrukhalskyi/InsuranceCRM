@@ -74,7 +74,7 @@ public class AgentController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PutMapping("/agentId")
+    @PutMapping("/{agentId}")
     public ResponseEntity updateAgent(@Valid @RequestBody AgentUpdateDto dto, @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(modelMapper.map(agentService.update(dto,id),AgentUpdateDto.class));
