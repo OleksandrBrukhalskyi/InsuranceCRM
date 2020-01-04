@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FiliationService {
-    List<Filiation> getFiliations();
+    List getFiliations();
     Filiation create(Filiation filiation);
     Filiation update(FiliationDto filiation,Long id);
     void delete(Long id);
