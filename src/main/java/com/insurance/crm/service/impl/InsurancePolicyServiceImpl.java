@@ -3,8 +3,12 @@ package com.insurance.crm.service.impl;
 import com.insurance.crm.dto.policy.InsurancePolicyUpdateDto;
 import com.insurance.crm.entity.InsurancePolicy;
 import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.repository.AgentRepository;
+import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.repository.InsurancePolicyRepository;
 import com.insurance.crm.service.InsurancePolicyService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +18,13 @@ import java.util.Optional;
 import static com.insurance.crm.constant.ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     @Autowired
     InsurancePolicyRepository insurancePolicyRepository;
+    private AgentRepository agentRepository;
+    private FiliationRepository filiationRepository;
 
     @Override
     public List<InsurancePolicy> getInsurancePolicies() {
