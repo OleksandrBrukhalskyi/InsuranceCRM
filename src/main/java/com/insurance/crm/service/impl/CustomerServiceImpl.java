@@ -8,6 +8,7 @@ import com.insurance.crm.repository.CustomerRepository;
 import com.insurance.crm.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,11 @@ public class CustomerServiceImpl implements CustomerService {
     ModelMapper modelMapper;
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<CustomerDto> getCustomers() {
         log.info(LogMessage.IN_FIND_ALL);
-        return customerRepository.findAll();
+        return modelMapper.map(customerRepository.findAll(), new TypeToken<List<CustomerDto>>(){
+
+        }.getType());
     }
 
     @Override
