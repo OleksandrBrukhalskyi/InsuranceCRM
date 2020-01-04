@@ -62,11 +62,24 @@ public class InsurancePolicyController {
     public List<InsurancePolicy> getAllPolicies(){
         return insurancePolicyService.getInsurancePolicies();
     }
+    @ApiOperation("Get Policy by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = HttpStatuses.OK),
+            @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+    })
     @GetMapping("/{id}")
     public InsurancePolicy getbyId(@PathVariable Long id){
         return insurancePolicyService.findById(id)
                 .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
     }
+    @ApiOperation(value = "Delete Policy")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = HttpStatuses.OK),
+            @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
+            @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         insurancePolicyService.delete(id);
