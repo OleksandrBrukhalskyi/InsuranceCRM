@@ -1,6 +1,7 @@
 package com.insurance.crm.service.impl;
 
 import com.insurance.crm.constant.ErrorMessage;
+import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.policy.InsurancePolicyUpdateDto;
 import com.insurance.crm.entity.InsurancePolicy;
 import com.insurance.crm.exception.NotDeletedException;
@@ -28,6 +29,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
 
     @Override
     public List<InsurancePolicy> getInsurancePolicies() {
+        log.info(LogMessage.IN_FIND_ALL);
         return insurancePolicyRepository.findAll();
     }
 
