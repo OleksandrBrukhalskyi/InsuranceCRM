@@ -71,4 +71,16 @@ public class FiliationController {
         return filiationService.findById(id)
                 .orElseThrow(()->new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id));
     }
+    @ApiOperation(value = "Delete customer")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = HttpStatuses.OK),
+            @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
+            @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
+            @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        filiationService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
