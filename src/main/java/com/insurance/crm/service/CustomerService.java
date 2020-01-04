@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CustomerService {
     List getCustomers();
-    Customer create(Customer customer);
+    Customer create(CustomerDto customer);
     Customer update(CustomerDto customer,Long id);
     void delete(Long id);
     Optional<Customer> getById(Long id);
