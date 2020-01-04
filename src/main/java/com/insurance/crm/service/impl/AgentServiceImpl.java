@@ -10,8 +10,8 @@ import com.insurance.crm.entity.enums.AgentStatus;
 import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.AgentRepository;
+import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.AgentService;
-import com.insurance.crm.service.FiliationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -27,7 +27,7 @@ import static com.insurance.crm.constant.ErrorMessage.AGENT_NOT_FOUND_BY_ID;
 public class AgentServiceImpl implements AgentService {
     @Autowired
     AgentRepository agentRepository;
-    private FiliationService filiationService;
+    private FiliationRepository filiationRepository;
     private ModelMapper modelMapper;
 
 
@@ -53,7 +53,7 @@ public class AgentServiceImpl implements AgentService {
         agent.setPatronymic(dto.getPatronymic());
         agent.setPassword(dto.getPassword());
         agent.setAge(dto.getAge());
-        agent.setFiliation(dto.getFiliation());
+        agent.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
         return agentRepository.save(agent);
     }
 
@@ -62,6 +62,7 @@ public class AgentServiceImpl implements AgentService {
         log.info(LogMessage.IN_DELETE_BY_ID,id);
         agentRepository.deleteById(id);
     }
+
 
     @Override
     public Agent getById(Long id) {
