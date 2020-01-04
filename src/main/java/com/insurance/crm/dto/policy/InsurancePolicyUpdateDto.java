@@ -1,7 +1,7 @@
 package com.insurance.crm.dto.policy;
 
-import com.insurance.crm.dto.agent.AgentRegistrationDto;
-import com.insurance.crm.dto.filiation.FiliationDto;
+import com.insurance.crm.entity.Agent;
+import com.insurance.crm.entity.Filiation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class InsurancePolicyUpdateDto {
     @NotBlank
     private Long id;
     @NotBlank
-    private FiliationDto filiationDto;
+    private Filiation filiation;
     @NotBlank
-    private AgentRegistrationDto agentDto;
+    private Agent agent;
 }
