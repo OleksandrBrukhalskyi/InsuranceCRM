@@ -1,5 +1,6 @@
 package com.insurance.crm.service.impl;
 
+import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.agent.AgentRoleDto;
 import com.insurance.crm.dto.agent.AgentStatusDto;
@@ -9,6 +10,7 @@ import com.insurance.crm.entity.Agent;
 import com.insurance.crm.entity.enums.AgentStatus;
 import com.insurance.crm.entity.enums.Role;
 import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.exception.NotUpdatedException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.AgentService;
@@ -46,15 +48,19 @@ public class AgentServiceImpl implements AgentService {
     @Override
     public Agent update(AgentUpdateDto dto,Long id) {
     log.info(LogMessage.IN_UPDATE);
-        Agent agent = agentRepository.findById(id)
-                .orElseThrow(()->new BadIdException(AGENT_NOT_FOUND_BY_ID + id));
-        agent.setSurname(dto.getSurname());
-        agent.setFirstname(dto.getFirstname());
-        agent.setPatronymic(dto.getPatronymic());
-        agent.setPassword(dto.getPassword());
-        agent.setAge(dto.getAge());
-        agent.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
-        return agentRepository.save(agent);
+    return agentRepository.findById(id)
+            .map(agent -> {
+                agent.setSurname(dto.getSurname());
+                agent.setFirstname(dto.getFirstname());
+                agent.setPatronymic(dto.getPatronymic());
+                agent.setPassword(dto.getPassword());
+                agent.setAge(dto.getAge());
+                agent.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
+                return agentRepository.save(agent);
+            })
+            .orElseThrow(()-> new NotUpdatedException(ErrorMessage.AGENT_NOT_UPDATED));
+
+
     }
 
 
