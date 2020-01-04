@@ -1,5 +1,6 @@
 package com.insurance.crm.controller;
 
+import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.entity.Customer;
 import com.insurance.crm.exception.BadIdException;
@@ -15,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import static com.insurance.crm.constant.ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID;
 
 @RestController
 @AllArgsConstructor
@@ -45,9 +44,12 @@ public class CustomerController {
     @GetMapping("/{customer_id}")
     public Customer getById(@PathVariable Long id){
         return customerService.getById(id)
-                .orElseThrow(()-> new BadIdException(CUSTOMER_NOT_FOUND_BY_ID +id));
+                .orElseThrow(()-> new BadIdException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + id));
     }
-
+//    @GetMapping
+//    public CustomerDto getAll(){
+//        return customerService.getCustomers();
+//    }
 
 
 }
