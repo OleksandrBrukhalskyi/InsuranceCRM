@@ -4,6 +4,8 @@ import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.entity.Customer;
+import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.exception.NotDeletedException;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.CustomerRepository;
 import com.insurance.crm.service.CustomerService;
@@ -60,14 +62,17 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void delete(Long id) {
         log.info(LogMessage.IN_DELETE_BY_ID, id);
-
+        if(!(customerRepository.findById(id).isPresent())){
+            throw new NotDeletedException(ErrorMessage.CUSTOMER_NOT_DELETED);
+        }
         customerRepository.deleteById(id);
     }
 
     @Override
     public Optional<Customer> getById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID, id);
-        return customerRepository.findById(id);
+        return Optional.ofNullable(customerRepository.findById(id)
+                .orElseThrow(() -> new BadIdException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + id)));
     }
 
     @Override
