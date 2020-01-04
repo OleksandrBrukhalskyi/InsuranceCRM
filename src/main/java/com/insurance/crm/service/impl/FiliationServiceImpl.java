@@ -4,6 +4,7 @@ import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.filiation.FiliationDto;
 import com.insurance.crm.entity.Filiation;
+import com.insurance.crm.exception.NotDeletedException;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.FiliationService;
@@ -33,9 +34,9 @@ public class FiliationServiceImpl implements FiliationService {
     }
 
     @Override
-    public Filiation create(Filiation filiation) {
+    public Filiation create(FiliationDto dto) {
         log.info(LogMessage.IN_SAVE);
-        return filiationRepository.save(filiation);
+        return filiationRepository.save(modelMapper.map(dto,Filiation.class));
     }
 
     @Override
@@ -54,11 +55,15 @@ public class FiliationServiceImpl implements FiliationService {
 
     @Override
     public void delete(Long id) {
+        if(!(filiationRepository.findById(id).isPresent())){
+            throw new NotDeletedException(ErrorMessage.FILIATION_NOT_DELETED);
+        }
         filiationRepository.deleteById(id);
     }
 
     @Override
     public Optional<Filiation> findById(Long id) {
-        return filiationRepository.findById(id);
+        return Optional.ofNullable(filiationRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id)));
     }
 }
