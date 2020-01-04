@@ -1,9 +1,10 @@
 package com.insurance.crm.service.impl;
 
+import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.filiation.FiliationDto;
 import com.insurance.crm.entity.Filiation;
-import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.FiliationService;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import static com.insurance.crm.constant.ErrorMessage.FILIATION_NOT_FOUND_BY_ID;
 
 @Service
 @AllArgsConstructor
@@ -48,7 +47,7 @@ public class FiliationServiceImpl implements FiliationService {
                     filiation.setPhone(dto.getPhone());
                     return filiationRepository.save(filiation);
                 })
-        .orElseThrow(()-> new BadIdException(FILIATION_NOT_FOUND_BY_ID + id));
+        .orElseThrow(()-> new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id));
     }
 
 
