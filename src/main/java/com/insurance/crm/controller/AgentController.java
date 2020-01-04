@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.security.Principal;
 @AllArgsConstructor
 public class AgentController {
     private AgentServiceImpl agentService;
+    private ModelMapper modelMapper;
 
     @ApiOperation(value = "Update status of agent")
     @ApiResponses(value = {
@@ -72,13 +74,10 @@ public class AgentController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PutMapping
-    public ResponseEntity updateAgent(@Valid @RequestBody AgentUpdateDto dto,
-                                      @ApiIgnore Principal principal){
-
-        String email = principal.getName();
-        agentService.update(dto,email);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PutMapping("/agentId")
+    public ResponseEntity updateAgent(@Valid @RequestBody AgentUpdateDto dto, @PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(modelMapper.map(agentService.update(dto,id),AgentUpdateDto.class));
     }
 
 
