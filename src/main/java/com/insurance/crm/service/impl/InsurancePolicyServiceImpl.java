@@ -2,6 +2,7 @@ package com.insurance.crm.service.impl;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
+import com.insurance.crm.dto.policy.InsurancePolicyCreationDto;
 import com.insurance.crm.dto.policy.InsurancePolicyUpdateDto;
 import com.insurance.crm.entity.InsurancePolicy;
 import com.insurance.crm.exception.NotDeletedException;
@@ -12,6 +13,7 @@ import com.insurance.crm.repository.InsurancePolicyRepository;
 import com.insurance.crm.service.InsurancePolicyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     InsurancePolicyRepository insurancePolicyRepository;
     private AgentRepository agentRepository;
     private FiliationRepository filiationRepository;
+    private ModelMapper modelMapper;
 
     @Override
     public List<InsurancePolicy> getInsurancePolicies() {
@@ -34,9 +37,9 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
-    public InsurancePolicy create(InsurancePolicy insurancePolicy) {
-        log.info(LogMessage.IN_SAVE,insurancePolicy);
-        return insurancePolicyRepository.save(insurancePolicy);
+    public InsurancePolicy create(InsurancePolicyCreationDto dto) {
+        log.info(LogMessage.IN_SAVE,dto);
+        return insurancePolicyRepository.save(modelMapper.map(dto,InsurancePolicy.class));
     }
 
     @Override
