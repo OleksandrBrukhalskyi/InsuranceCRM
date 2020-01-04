@@ -11,5 +11,5 @@ public interface FiliationService {
     Filiation create(FiliationDto filiation);
     Filiation update(FiliationDto filiation,Long id);
     void delete(Long id);
-    Optional<Filiation> findById(Long id);
+    Optional<FiliationDto> findById(Long id);
 }

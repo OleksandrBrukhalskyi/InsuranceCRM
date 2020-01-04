@@ -62,8 +62,7 @@ public class FiliationServiceImpl implements FiliationService {
     }
 
     @Override
-    public Optional<Filiation> findById(Long id) {
-        return Optional.ofNullable(filiationRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id)));
+    public Optional<FiliationDto> findById(Long id) {
+        return Optional.ofNullable(modelMapper.map(filiationRepository.findById(id),FiliationDto.class));
     }
 }
