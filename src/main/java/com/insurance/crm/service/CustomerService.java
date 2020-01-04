@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    List getCustomers();
+    List<CustomerDto> getCustomers();
     Customer create(CustomerDto customer);
     Customer update(CustomerDto customer,Long id);
     void delete(Long id);

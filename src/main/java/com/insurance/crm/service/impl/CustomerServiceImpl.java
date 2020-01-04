@@ -31,7 +31,6 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDto> getCustomers() {
         log.info(LogMessage.IN_FIND_ALL);
         return modelMapper.map(customerRepository.findAll(), new TypeToken<List<CustomerDto>>(){
-
         }.getType());
     }
 
