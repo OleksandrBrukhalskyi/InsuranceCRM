@@ -9,4 +9,5 @@ public class LogMessage {
     public static final String IN_FIND_BY_EMAIL = "in getByEmail(), email: {}";
     public static final String IN_FIND_BY_SURNAME ="in findBySurname(), surname: {}";
     public static final String IN_FIND_BY_TAG = "in findInsurancePoliciesByInsuranceTypeTag(), tag: {}";
+    public static final String IN_FIND_BY_INSURANCE_TYPE_NAME = "in findInsuranceTypeByName(), name: {}";
 }
