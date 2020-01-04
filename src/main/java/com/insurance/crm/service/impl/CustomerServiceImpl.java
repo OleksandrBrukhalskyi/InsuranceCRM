@@ -1,11 +1,13 @@
 package com.insurance.crm.service.impl;
 
+import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.entity.Customer;
-import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.CustomerRepository;
 import com.insurance.crm.service.CustomerService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -15,14 +17,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static com.insurance.crm.constant.ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID;
-
 @Service
 @Slf4j
+@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
     public List<CustomerDto> getCustomers() {
@@ -41,15 +42,17 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer update(CustomerDto dto, Long id) {
         log.info(LogMessage.IN_UPDATE);
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(()-> new BadIdException(CUSTOMER_NOT_FOUND_BY_ID + id));
-        customer.setSurname(dto.getSurname());
-        customer.setFirstname(dto.getFirstname());
-        customer.setPatronymic(dto.getPatronymic());
-        customer.setHomeAddress(dto.getHomeAddress());
-        customer.setPhoneNum(dto.getHomeNumber());
-        customer.setAge(dto.getAge());
-        return customerRepository.save(customer);
+        return customerRepository.findById(id)
+                .map(customer -> {
+                    customer.setSurname(dto.getSurname());
+                    customer.setFirstname(dto.getFirstname());
+                    customer.setPatronymic(dto.getPatronymic());
+                    customer.setHomeAddress(dto.getHomeAddress());
+                    customer.setPhoneNum(dto.getHomeNumber());
+                    customer.setAge(dto.getAge());
+                    return customerRepository.save(customer);
+                })
+                .orElseThrow(()-> new NotFoundException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + id));
     }
 
 
@@ -57,6 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void delete(Long id) {
         log.info(LogMessage.IN_DELETE_BY_ID, id);
+
         customerRepository.deleteById(id);
     }
 
