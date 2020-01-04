@@ -9,7 +9,8 @@ import com.insurance.crm.dto.agent.RoleDto;
 import com.insurance.crm.entity.Agent;
 import com.insurance.crm.entity.enums.AgentStatus;
 import com.insurance.crm.entity.enums.Role;
-import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.exception.NotDeletedException;
+import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.exception.NotUpdatedException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.FiliationRepository;
@@ -21,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.insurance.crm.constant.ErrorMessage.AGENT_NOT_FOUND_BY_ID;
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -66,6 +65,9 @@ public class AgentServiceImpl implements AgentService {
 
     public void delete(Long id){
         log.info(LogMessage.IN_DELETE_BY_ID,id);
+        if(!(agentRepository.findById(id).isPresent())){
+            throw new NotDeletedException(ErrorMessage.AGENT_NOT_DELETED);
+        }
         agentRepository.deleteById(id);
     }
 
@@ -74,7 +76,7 @@ public class AgentServiceImpl implements AgentService {
     public Agent getById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID,id);
         return agentRepository.findById(id)
-                .orElseThrow(()-> new BadIdException(AGENT_NOT_FOUND_BY_ID + id));
+                .orElseThrow(()-> new NotFoundException(ErrorMessage.AGENT_NOT_FOUND_BY_ID + id));
     }
 
     @Override
