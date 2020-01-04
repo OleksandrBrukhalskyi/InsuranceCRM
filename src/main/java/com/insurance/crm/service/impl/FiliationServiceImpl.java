@@ -5,6 +5,9 @@ import com.insurance.crm.entity.Filiation;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.FiliationService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +17,12 @@ import java.util.Optional;
 import static com.insurance.crm.constant.ErrorMessage.FILIATION_NOT_FOUND_BY_ID;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class FiliationServiceImpl implements FiliationService {
     @Autowired
     FiliationRepository filiationRepository;
+    private ModelMapper modelMapper;
 
     @Override
     public List<Filiation> getFiliations() {
