@@ -35,11 +35,13 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
 
     @Override
     public InsurancePolicy create(InsurancePolicy insurancePolicy) {
+        log.info(LogMessage.IN_SAVE,insurancePolicy);
         return insurancePolicyRepository.save(insurancePolicy);
     }
 
     @Override
     public InsurancePolicy update(InsurancePolicyUpdateDto dto, Long id) {
+        log.info(LogMessage.IN_UPDATE,id);
         return insurancePolicyRepository.findById(id)
                 .map(insurancePolicy -> {
                     insurancePolicy.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
