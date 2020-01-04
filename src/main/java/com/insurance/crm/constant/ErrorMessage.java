@@ -3,6 +3,9 @@ package com.insurance.crm.constant;
 public class ErrorMessage {
     public static final String AGENT_NOT_FOUND_BY_ID = "The agent does not exist by this id: ";
     public static final String AGENT_NOT_FOUND_BY_EMAIL = "The agent does not exist by this email: ";
+    public static final String AGENT_NOT_DELETED = "The agent not deleted";
+    public static final String AGENT_NOT_UPDATED = "The agent not updated";
+    public static final String AGENT_NOT_SAVED_BY_SURNAME = "The agent not saved by this surname: ";
     public static final String CUSTOMER_NOT_FOUND_BY_ID = "The customer does not exist by this id: ";
     public static final String FILIATION_NOT_FOUND_BY_ID = "The filiation does not exist by this id: ";
     public static final String INSURANCE_POLICY_NOT_FOUND_BY_ID = "The insurance policy does not exist by this id: ";
