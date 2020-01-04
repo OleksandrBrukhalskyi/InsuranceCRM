@@ -59,11 +59,12 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
 
     @Override
     public Optional<InsurancePolicy> findById(Long id) {
-        return insurancePolicyRepository.findById(id);
+        return Optional.ofNullable(insurancePolicyRepository.findById(id))
+                .orElseThrow(()->new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
     }
 
     @Override
     public List<InsurancePolicy> getInsurancePoliciesByInsuranceTypeTag(String tag) {
-        return null;
+        return insurancePolicyRepository.findInsurancePolicyByInsuranceTypeTag(tag);
     }
 }
