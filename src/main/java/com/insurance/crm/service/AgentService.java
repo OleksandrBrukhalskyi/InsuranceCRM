@@ -13,7 +13,7 @@ import java.util.List;
 public interface AgentService {
     List<Agent> getAgents();
     Agent create(Agent agent);
-    Agent update(AgentUpdateDto agent,String email);
+    Agent update(AgentUpdateDto agent,Long id);
     void delete(Long id);
     Agent getById(Long id);
     Agent getByEmail(String email);
