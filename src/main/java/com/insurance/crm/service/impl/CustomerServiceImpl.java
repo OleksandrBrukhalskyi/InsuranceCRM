@@ -36,9 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer create(Customer customer) {
-        log.info(LogMessage.IN_SAVE,customer);
-        return customerRepository.save(customer);
+    public Customer create(CustomerDto dto) {
+        log.info(LogMessage.IN_SAVE,dto);
+        return customerRepository.save(modelMapper.map(dto, Customer.class));
     }
 
     @Override
