@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -62,7 +61,8 @@ public class FiliationServiceImpl implements FiliationService {
     }
 
     @Override
-    public Optional<FiliationDto> findById(Long id) {
-        return Optional.ofNullable(modelMapper.map(filiationRepository.findById(id),FiliationDto.class));
+    public FiliationDto findById(Long id) {
+        return modelMapper.map(filiationRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id)),FiliationDto.class);
     }
 }
