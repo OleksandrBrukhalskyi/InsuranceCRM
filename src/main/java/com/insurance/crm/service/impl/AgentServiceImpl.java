@@ -15,22 +15,22 @@ import com.insurance.crm.exception.NotUpdatedException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.service.AgentService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 @Service
-@AllArgsConstructor
 @Slf4j
 public class AgentServiceImpl implements AgentService {
     @Autowired
-    AgentRepository agentRepository;
+    private AgentRepository agentRepository;
+    @Autowired
     private FiliationRepository filiationRepository;
+    @Autowired
     private ModelMapper modelMapper;
-
 
 
     @Override
@@ -107,7 +107,7 @@ public class AgentServiceImpl implements AgentService {
     public AgentRoleDto updateRole(Long id, Role role) {
         log.info(LogMessage.IN_UPDATE,role);
         Agent agent = getById(id);
-        agent.setRole(role);
+        agent.setRole(Collections.singleton(role));
         return modelMapper.map(agentRepository.save(agent),AgentRoleDto.class);
     }
 

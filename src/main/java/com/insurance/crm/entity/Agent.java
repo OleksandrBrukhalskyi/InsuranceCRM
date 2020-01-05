@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -38,7 +40,7 @@ public class Agent {
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="agent_role",joinColumns = @JoinColumn(name = "agent_id"))
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Set<Role> role;
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
