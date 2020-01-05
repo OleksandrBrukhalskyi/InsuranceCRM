@@ -1,15 +1,14 @@
 package com.insurance.crm.controller;
 
-import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.dto.filiation.FiliationDto;
-import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.service.impl.FiliationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,9 @@ import java.util.List;
 @RequestMapping("/filiation")
 @AllArgsConstructor
 public class FiliationController {
+    @Autowired
     private FiliationServiceImpl filiationService;
+    @Autowired
     private ModelMapper modelMapper;
 
     @ApiOperation(value = "Create Filiation")
@@ -31,7 +32,7 @@ public class FiliationController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity save(@Valid @RequestBody FiliationDto dto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(filiationService.create(dto));
@@ -60,6 +61,7 @@ public class FiliationController {
     public List<FiliationDto> getFiliations(){
         return filiationService.getFiliations();
     }
+
     @ApiOperation("Get Filiation by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = HttpStatuses.OK),
@@ -68,10 +70,9 @@ public class FiliationController {
     })
     @GetMapping("/{id}")
     public FiliationDto getById(@PathVariable Long id){
-        return filiationService.findById(id)
-                .orElseThrow(()->new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id));
+        return filiationService.findById(id);
     }
-    @ApiOperation(value = "Delete customer")
+    @ApiOperation(value = "Delete filiation")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = HttpStatuses.OK),
             @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
