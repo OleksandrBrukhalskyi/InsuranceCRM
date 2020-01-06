@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDto {
-    @NotBlank
+
     private Long id;
     @NotBlank
     private String surname;
