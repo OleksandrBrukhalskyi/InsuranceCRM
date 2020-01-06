@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AgentRoleDto {
-    @NotNull
+
     private Long id;
 
     @NotNull
