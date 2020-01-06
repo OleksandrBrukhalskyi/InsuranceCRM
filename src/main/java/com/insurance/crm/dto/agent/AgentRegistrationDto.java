@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AgentRegistrationDto {
-    @NotBlank
+
     private Long id;
     @NotBlank
     private String surname;
