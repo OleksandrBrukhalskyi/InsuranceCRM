@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,10 @@ import java.util.List;
 @RequestMapping("/policy")
 @AllArgsConstructor
 public class InsurancePolicyController {
+    @Autowired
     private InsurancePolicyServiceImpl insurancePolicyService;
+    @Autowired
+
     private ModelMapper modelMapper;
 
     @ApiOperation(value = "Create InsurancePolicy")
