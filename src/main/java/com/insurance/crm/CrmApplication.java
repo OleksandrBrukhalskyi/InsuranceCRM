@@ -3,6 +3,7 @@ package com.insurance.crm;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class CrmApplication {
 
@@ -10,4 +11,6 @@ public class CrmApplication {
         SpringApplication.run(CrmApplication.class, args);
     }
 
+
 }
+
