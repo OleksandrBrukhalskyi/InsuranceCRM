@@ -25,6 +25,7 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
+    @Autowired
     private ModelMapper modelMapper;
 
     @ApiOperation(value = "Save customer")
