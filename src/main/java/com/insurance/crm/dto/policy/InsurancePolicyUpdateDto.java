@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsurancePolicyUpdateDto {
-    @NotBlank
+
     private Long id;
     @NotBlank
     private Filiation filiation;

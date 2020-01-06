@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsurancePolicyCreationDto {
-    @NotBlank
+
     private Long id;
     @NotBlank
     private String signDate;
