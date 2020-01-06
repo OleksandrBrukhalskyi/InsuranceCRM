@@ -40,7 +40,7 @@ public class Agent {
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @CollectionTable(name="agent_role",joinColumns = @JoinColumn(name = "agent_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> role;
+    private Set<Role> roles;
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
