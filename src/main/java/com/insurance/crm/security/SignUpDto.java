@@ -31,6 +31,8 @@ public class SignUpDto {
     @NotBlank
     private Integer age;
     @NotBlank
+    private String login;
+    @NotBlank
     @Pattern(
             regexp = "^(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*\\d+)(?=.*[~`!@#$%^&*()+=_{}|:;”’?/<>,.\\]\\[]+).{8,}$",
             message = INVALID_PASSWORD
