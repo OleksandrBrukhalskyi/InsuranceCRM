@@ -10,8 +10,8 @@ import com.insurance.crm.service.impl.AgentServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,13 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/agent")
-@AllArgsConstructor
+
 public class AgentController {
+    @Autowired
     private AgentServiceImpl agentService;
+    @Autowired
     private ModelMapper modelMapper;
+
 
     @ApiOperation(value = "Update status of agent")
     @ApiResponses(value = {
