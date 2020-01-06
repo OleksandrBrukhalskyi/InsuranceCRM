@@ -19,7 +19,7 @@ public class Filiation {
     private String name;
     @Column(name = "address",nullable = false,length = 30)
     private String address;
-    @Column(name = "phone",nullable = false,length = 30)
+    @Column(name = "phone",nullable = false,length = 150)
     private String phone;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "filiation")
     private List<Agent> agents;
