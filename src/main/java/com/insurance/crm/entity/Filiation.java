@@ -1,9 +1,11 @@
 package com.insurance.crm.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -14,17 +16,14 @@ import java.util.List;
 public class Filiation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "filiaiton_id")
+    private Long filiation_id;
     @Column(name = "name",nullable = false,length = 30)
     private String name;
     @Column(name = "address",nullable = false,length = 30)
     private String address;
     @Column(name = "phone",nullable = false,length = 150)
     private String phone;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "filiation")
-    private List<Agent> agents;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "filiation")
-    private List<InsurancePolicy> insurancePolicies;
 
 
 }

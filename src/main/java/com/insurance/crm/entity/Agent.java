@@ -1,14 +1,11 @@
 package com.insurance.crm.entity;
 
-import com.insurance.crm.entity.enums.AgentStatus;
-import com.insurance.crm.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,37 +13,40 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "agents")
+
 public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "surname",nullable = false, length = 20)
+    @Column(name = "surname", length = 20)
     private String surname;
-    @Column(name="firstname",nullable = false, length = 20)
+    @Column(name="firstname", length = 20)
     private String firstname;
-    @Column(name = "patronymic",nullable = true, length = 20)
+    @Column(name = "patronymic", length = 20)
     private String patronymic;
-    @Column(name = "email",nullable = true, length = 50, unique = true)
+    @Column(name = "email", length = 50, unique = true)
     private String email;
-    @Column(name = "login",nullable = false, length = 20)
-    private String login;
-    @Column(name = "password",nullable = false, length = 20)
+    @Column(name = "username", length = 20)
+    private String username;
+    @Column(name = "password", length = 100)
     private String password;
-    @Column(name = "age",nullable = true, length = 2)
-    private Integer age;
-    @Enumerated(value = EnumType.STRING)
-    private AgentStatus agentStatus;
-    @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
-    @CollectionTable(name="agent_role",joinColumns = @JoinColumn(name = "agent_id"))
-    @Enumerated(EnumType.STRING)
+    @Column(name = "age", length = 2)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="user_roles",
+    joinColumns = @JoinColumn(name = "agent_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
     @JoinColumn(name = "filiation_id",nullable = false)
     private Filiation filiation;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "agent")
-    private List<InsurancePolicy> insurancePolicies;
 
 
+    public Agent(String surname, String firstname, String patronymic, String email, String login, String password, Integer age, String role, String agentStatus, Filiation filiation) {
+    }
 
+    public Agent(Long id, String surname, String firstname, String patronymic, String email, String login, String password, Integer age, String role, String agentStatus, Filiation filiation) {
+    }
+
+    public Agent(String surname, String firstname, String patronymic, String email, String username, String password, Filiation filiation) {
+    }
 }
