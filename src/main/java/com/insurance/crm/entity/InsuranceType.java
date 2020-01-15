@@ -19,8 +19,6 @@ public class InsuranceType {
     private double sumInsured;
     @Column(name = "tag",nullable = false,length = 4)
     private String tag;
-    @OneToOne(cascade = CascadeType.ALL)
-    private InsurancePolicy insurancePolicy;
 
 
 }

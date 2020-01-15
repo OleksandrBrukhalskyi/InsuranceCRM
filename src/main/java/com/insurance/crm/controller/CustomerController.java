@@ -2,7 +2,6 @@ package com.insurance.crm.controller;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
-import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.entity.Customer;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.service.CustomerService;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +23,6 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @ApiOperation(value = "Save customer")
     @ApiResponses(value = {
@@ -35,7 +31,7 @@ public class CustomerController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
     })
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody CustomerDto dto){
+    public ResponseEntity save(@Valid @RequestBody Customer dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.create(dto));
     }
     @ApiOperation(value = "Get customer by id")
@@ -57,7 +53,7 @@ public class CustomerController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @GetMapping
-    public List<CustomerDto> getAll(){
+    public List<Customer> getAll(){
         return customerService.getCustomers();
     }
     @ApiOperation(value = "Update customer")
@@ -68,10 +64,10 @@ public class CustomerController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PutMapping("/{customerId}")
-    public ResponseEntity<CustomerDto> update(@Valid @RequestBody CustomerDto dto,
+    public ResponseEntity<Customer> update(@Valid @RequestBody Customer dto,
                                               @PathVariable Long customerId){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(modelMapper.map(customerService.update(dto,customerId),CustomerDto.class));
+                .body(customerService.update(dto,customerId));
     }
     @ApiOperation(value = "Delete customer")
     @ApiResponses(value = {

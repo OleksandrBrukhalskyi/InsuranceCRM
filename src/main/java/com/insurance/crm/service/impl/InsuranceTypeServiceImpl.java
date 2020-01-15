@@ -2,15 +2,12 @@ package com.insurance.crm.service.impl;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
-import com.insurance.crm.dto.type.InsuranceTypeUpdateDto;
-import com.insurance.crm.dto.type.InsuranceTypeСreationDto;
 import com.insurance.crm.entity.InsuranceType;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.InsuranceTypeRepository;
 import com.insurance.crm.service.InsuranceTypeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +22,7 @@ import java.util.Optional;
 public class InsuranceTypeServiceImpl implements InsuranceTypeService {
     @Autowired
     InsuranceTypeRepository insuranceTypeRepository;
-    private ModelMapper modelMapper;
+
 
     @Override
     public List<InsuranceType> getInsuranceTypes() {
@@ -35,13 +32,13 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
     }
 
     @Override
-    public InsuranceType create(InsuranceTypeСreationDto dto) {
+    public InsuranceType create(InsuranceType dto) {
         log.info(LogMessage.IN_SAVE,dto);
-        return insuranceTypeRepository.save(modelMapper.map(dto,InsuranceType.class));
+        return insuranceTypeRepository.save(dto);
     }
 
     @Override
-    public InsuranceType update(InsuranceTypeUpdateDto dto, Long id) {
+    public InsuranceType update(InsuranceType dto, Long id) {
         log.info(LogMessage.IN_UPDATE,dto);
         InsuranceType insuranceType = insuranceTypeRepository.findById(id)
                 .orElseThrow(()-> new BadIdException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));

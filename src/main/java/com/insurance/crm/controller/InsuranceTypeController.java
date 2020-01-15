@@ -2,8 +2,6 @@ package com.insurance.crm.controller;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
-import com.insurance.crm.dto.type.InsuranceTypeUpdateDto;
-import com.insurance.crm.dto.type.InsuranceTypeСreationDto;
 import com.insurance.crm.entity.InsuranceType;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.service.impl.InsuranceTypeServiceImpl;
@@ -11,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +23,6 @@ import java.util.List;
 public class InsuranceTypeController {
     @Autowired
     private InsuranceTypeServiceImpl insuranceTypeService;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @ApiOperation(value = "Create InsuranceType")
     @ApiResponses(value = {
@@ -37,7 +32,7 @@ public class InsuranceTypeController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody InsuranceTypeСreationDto dto){
+    public ResponseEntity save(@Valid @RequestBody InsuranceType dto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(insuranceTypeService.create(dto));
     }
@@ -49,10 +44,10 @@ public class InsuranceTypeController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<InsuranceTypeUpdateDto> update(@Valid @RequestBody InsuranceTypeUpdateDto dto,
+    public ResponseEntity<InsuranceType> update(@Valid @RequestBody InsuranceType dto,
                                                          @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(modelMapper.map(insuranceTypeService.update(dto,id),InsuranceTypeUpdateDto.class));
+                .body(insuranceTypeService.update(dto,id));
     }
     @ApiOperation(value = "Get all InsuranceTypes")
     @ApiResponses(value = {

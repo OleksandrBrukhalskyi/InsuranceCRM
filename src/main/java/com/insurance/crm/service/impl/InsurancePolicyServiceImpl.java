@@ -2,18 +2,15 @@ package com.insurance.crm.service.impl;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
-import com.insurance.crm.dto.policy.InsurancePolicyCreationDto;
-import com.insurance.crm.dto.policy.InsurancePolicyUpdateDto;
 import com.insurance.crm.entity.InsurancePolicy;
 import com.insurance.crm.exception.NotDeletedException;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.AgentRepository;
-import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.repository.InsurancePolicyRepository;
+import com.insurance.crm.service.FiliationService;
 import com.insurance.crm.service.InsurancePolicyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +24,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     @Autowired
     InsurancePolicyRepository insurancePolicyRepository;
     private AgentRepository agentRepository;
-    private FiliationRepository filiationRepository;
-    private ModelMapper modelMapper;
+    private FiliationService filiationService;
 
     @Override
     public List<InsurancePolicy> getInsurancePolicies() {
@@ -37,18 +33,19 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
-    public InsurancePolicy create(InsurancePolicyCreationDto dto) {
+    public InsurancePolicy create(InsurancePolicy dto) {
         log.info(LogMessage.IN_SAVE,dto);
-        return insurancePolicyRepository.save(modelMapper.map(dto,InsurancePolicy.class));
+        return insurancePolicyRepository.save(dto);
     }
 
     @Override
-    public InsurancePolicy update(InsurancePolicyUpdateDto dto, Long id) {
+    public InsurancePolicy update(InsurancePolicy dto,Long id) {
         log.info(LogMessage.IN_UPDATE,id);
         return insurancePolicyRepository.findById(id)
                 .map(insurancePolicy -> {
-                    insurancePolicy.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
-                    insurancePolicy.setAgent(agentRepository.findById(dto.getAgent().getId()).get());
+                    insurancePolicy.setInsuranceType(dto.getInsuranceType());
+                    insurancePolicy.setCustomer(dto.getCustomer());
+                    insurancePolicy.setAgent(dto.getAgent());
                     return insurancePolicyRepository.save(insurancePolicy);
                 })
           .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));

@@ -17,16 +17,14 @@ public class InsurancePolicy {
     private String signDate;
     @Column(name = "expiry_date",nullable = false,length = 10)
     private String expiryDate;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "filiation_id",nullable = false)
-    private Filiation filiation;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(optional = false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "insurance_type_id")
     private InsuranceType insuranceType;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "agent_id",nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "agent_id")
     private Agent agent;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id",nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
 

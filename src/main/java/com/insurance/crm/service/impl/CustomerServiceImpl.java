@@ -2,7 +2,6 @@ package com.insurance.crm.service.impl;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
-import com.insurance.crm.dto.customer.CustomerDto;
 import com.insurance.crm.entity.Customer;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.exception.NotDeletedException;
@@ -11,8 +10,6 @@ import com.insurance.crm.repository.CustomerRepository;
 import com.insurance.crm.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,23 +22,21 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
-    private ModelMapper modelMapper;
 
     @Override
-    public List<CustomerDto> getCustomers() {
+    public List<Customer> getCustomers() {
         log.info(LogMessage.IN_FIND_ALL);
-        return modelMapper.map(customerRepository.findAll(), new TypeToken<List<CustomerDto>>(){
-        }.getType());
+        return customerRepository.findAll();
     }
 
     @Override
-    public Customer create(CustomerDto dto) {
+    public Customer create(Customer dto) {
         log.info(LogMessage.IN_SAVE,dto);
-        return customerRepository.save(modelMapper.map(dto, Customer.class));
+        return customerRepository.save(dto);
     }
 
     @Override
-    public Customer update(CustomerDto dto, Long id) {
+    public Customer update(Customer dto, Long id) {
         log.info(LogMessage.IN_UPDATE);
         return customerRepository.findById(id)
                 .map(customer -> {
@@ -49,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customer.setFirstname(dto.getFirstname());
                     customer.setPatronymic(dto.getPatronymic());
                     customer.setHomeAddress(dto.getHomeAddress());
-                    customer.setPhoneNum(dto.getHomeNumber());
+                    customer.setPhoneNum(dto.getPhoneNum());
                     customer.setAge(dto.getAge());
                     return customerRepository.save(customer);
                 })
