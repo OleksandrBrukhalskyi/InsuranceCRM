@@ -1,6 +1,6 @@
 package com.insurance.crm.entity.enums;
 
-public enum Role {
+public enum RoleName {
     USER,
     ADMIN
 }
