@@ -1,4 +1,4 @@
-package com.insurance.crm;
+package com.insurance.crm.forms;
 
 import lombok.Getter;
 import lombok.Setter;

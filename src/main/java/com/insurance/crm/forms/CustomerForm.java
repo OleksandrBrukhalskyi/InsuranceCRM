@@ -1,4 +1,4 @@
-package com.insurance.crm;
+package com.insurance.crm.forms;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,7 @@ public class CustomerForm {
     private String surname;
     private String firstname;
     private String patronymic;
-    private String phone;
-    private String address;
+    private String phoneNum;
+    private String homeAddress;
+    private Integer age;
 }
