@@ -34,15 +34,9 @@ public class FiliationServiceImpl implements FiliationService {
     }
 
     @Override
-    public Filiation update(Filiation dto, Long id) {
-        return filiationRepository.findById(id)
-                .map(filiation -> {
-                    filiation.setName(dto.getName());
-                    filiation.setAddress(dto.getAddress());
-                    filiation.setPhone(dto.getPhone());
-                    return filiationRepository.save(filiation);
-                })
-        .orElseThrow(()-> new NotFoundException(ErrorMessage.FILIATION_NOT_FOUND_BY_ID + id));
+    public Filiation update(Filiation filiation) {
+        return filiationRepository.save(filiation);
+
     }
 
 
