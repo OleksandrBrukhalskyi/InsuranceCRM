@@ -5,7 +5,6 @@ import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.entity.Customer;
 import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.exception.NotDeletedException;
-import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.CustomerRepository;
 import com.insurance.crm.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -36,19 +35,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer update(Customer dto, Long id) {
+    public Customer update(Customer customer) {
         log.info(LogMessage.IN_UPDATE);
-        return customerRepository.findById(id)
-                .map(customer -> {
-                    customer.setSurname(dto.getSurname());
-                    customer.setFirstname(dto.getFirstname());
-                    customer.setPatronymic(dto.getPatronymic());
-                    customer.setHomeAddress(dto.getHomeAddress());
-                    customer.setPhoneNum(dto.getPhoneNum());
-                    customer.setAge(dto.getAge());
-                    return customerRepository.save(customer);
-                })
-                .orElseThrow(()-> new NotFoundException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + id));
+        return customerRepository.save(customer);
     }
 
 
