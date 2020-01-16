@@ -2,6 +2,7 @@ package com.insurance.crm.controller;
 
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.entity.Filiation;
+import com.insurance.crm.forms.FiliationForm;
 import com.insurance.crm.service.impl.FiliationServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,9 +31,13 @@ public class FiliationController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PostMapping("/add")
-    public ResponseEntity save(@Valid @RequestBody Filiation dto){
+    public ResponseEntity save(@Valid @RequestBody FiliationForm form){
+        Filiation filiation = new Filiation();
+        filiation.setName(form.getName());
+        filiation.setAddress(form.getAddress());
+        filiation.setPhone(form.getPhone());
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(filiationService.create(dto));
+                .body(filiationService.create(filiation));
     }
     @ApiOperation(value = "Update filiation")
     @ApiResponses(value = {
@@ -42,10 +47,13 @@ public class FiliationController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PutMapping("/{filiationId}")
-    public ResponseEntity<Filiation> update(@Valid @RequestBody Filiation dto,
-                                               @PathVariable Long filiationId){
+    public ResponseEntity<Filiation> update(@Valid @RequestBody FiliationForm form){
+        Filiation filiation = new Filiation();
+        filiation.setName(form.getName());
+        filiation.setAddress(form.getAddress());
+        filiation.setPhone(form.getPhone());
         return ResponseEntity.status(HttpStatus.OK)
-                .body(filiationService.update(dto,filiationId));
+                .body(filiationService.update(filiation));
     }
     @ApiOperation("Get all filiations")
     @ApiResponses(value = {
