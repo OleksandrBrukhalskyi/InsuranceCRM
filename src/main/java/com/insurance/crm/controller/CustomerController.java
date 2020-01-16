@@ -4,6 +4,7 @@ import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.entity.Customer;
 import com.insurance.crm.exception.BadIdException;
+import com.insurance.crm.forms.CustomerForm;
 import com.insurance.crm.service.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,8 +32,15 @@ public class CustomerController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
     })
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Customer dto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.create(dto));
+    public ResponseEntity save(@Valid @RequestBody CustomerForm form){
+        Customer customer = new Customer();
+        customer.setSurname(form.getSurname());
+        customer.setFirstname(form.getFirstname());
+        customer.setPatronymic(form.getPatronymic());
+        customer.setPhoneNum(form.getPhoneNum());
+        customer.setHomeAddress(form.getHomeAddress());
+        customer.setAge(form.getAge());
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.create(customer));
     }
     @ApiOperation(value = "Get customer by id")
     @ApiResponses(value = {
@@ -64,10 +72,16 @@ public class CustomerController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @PutMapping("/{customerId}")
-    public ResponseEntity<Customer> update(@Valid @RequestBody Customer dto,
-                                              @PathVariable Long customerId){
+    public ResponseEntity<Customer> update(@Valid @RequestBody CustomerForm form){
+        Customer customer = new Customer();
+        customer.setSurname(form.getSurname());
+        customer.setFirstname(form.getFirstname());
+        customer.setPatronymic(form.getPatronymic());
+        customer.setPhoneNum(form.getPhoneNum());
+        customer.setHomeAddress(form.getHomeAddress());
+        customer.setAge(form.getAge());
         return ResponseEntity.status(HttpStatus.OK)
-                .body(customerService.update(dto,customerId));
+                .body(customerService.update(customer));
     }
     @ApiOperation(value = "Delete customer")
     @ApiResponses(value = {
