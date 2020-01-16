@@ -39,16 +39,9 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
-    public InsurancePolicy update(InsurancePolicy dto,Long id) {
-        log.info(LogMessage.IN_UPDATE,id);
-        return insurancePolicyRepository.findById(id)
-                .map(insurancePolicy -> {
-                    insurancePolicy.setInsuranceType(dto.getInsuranceType());
-                    insurancePolicy.setCustomer(dto.getCustomer());
-                    insurancePolicy.setAgent(dto.getAgent());
-                    return insurancePolicyRepository.save(insurancePolicy);
-                })
-          .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
+    public InsurancePolicy update(InsurancePolicy insurancePolicy) {
+        log.info(LogMessage.IN_UPDATE);
+        return insurancePolicyRepository.save(insurancePolicy);
     }
 
 
