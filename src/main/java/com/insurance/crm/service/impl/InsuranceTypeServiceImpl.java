@@ -1,9 +1,7 @@
 package com.insurance.crm.service.impl;
 
-import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.entity.InsuranceType;
-import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.repository.InsuranceTypeRepository;
 import com.insurance.crm.service.InsuranceTypeService;
 import lombok.AllArgsConstructor;
@@ -38,13 +36,8 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
     }
 
     @Override
-    public InsuranceType update(InsuranceType dto, Long id) {
-        log.info(LogMessage.IN_UPDATE,dto);
-        InsuranceType insuranceType = insuranceTypeRepository.findById(id)
-                .orElseThrow(()-> new BadIdException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
-        insuranceType.setName(dto.getName());
-        insuranceType.setTag(dto.getTag());
-        insuranceType.setSumInsured(dto.getSumInsured());
+    public InsuranceType update(InsuranceType insuranceType) {
+        log.info(LogMessage.IN_UPDATE,insuranceType);
         return insuranceTypeRepository.save(insuranceType);
     }
 

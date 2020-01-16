@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface InsuranceTypeService {
     List<InsuranceType> getInsuranceTypes();
     InsuranceType create(InsuranceType dto);
-    InsuranceType update(InsuranceType dto,Long id);
+    InsuranceType update(InsuranceType dto);
     void delete(Long id);
     Optional<InsuranceType> findById(Long id);
     List<InsuranceType> getInsuranceTypeByName(String name);
