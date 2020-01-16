@@ -9,6 +9,7 @@ import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.RoleRepository;
 import com.insurance.crm.service.FiliationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,8 +39,6 @@ public class AuthController {
     FiliationService filiationService;
     @Autowired
     RoleRepository roleRepository;
-    @Autowired
-    private CustomAgentDetailsService customAgentDetailsService;
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
@@ -53,15 +52,24 @@ public class AuthController {
 
 
         String jwt = jwtTokenProvider.generateToken(authentication);
+        System.out.println(jwt);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequest signUpRequest){
+        if(agentRepository.existsByUsername(signUpRequest.getUsername())){
+            return new ResponseEntity(new ApiResponse(false,"Username is already taken"),
+                    HttpStatus.BAD_REQUEST);
+        }
         Filiation filiation =filiationService.findById(signUpRequest.getFiliation());
-        Agent agent = new Agent(signUpRequest.getSurname(),signUpRequest.getFirstname(),
-                signUpRequest.getPatronymic(),signUpRequest.getEmail(),
-                signUpRequest.getUsername(),signUpRequest.getPassword(),filiation);
+        Agent agent = new Agent();
+        agent.setSurname(signUpRequest.getSurname());
+        agent.setFirstname(signUpRequest.getFirstname());
+        agent.setPatronymic(signUpRequest.getPatronymic());
+        agent.setEmail( signUpRequest.getEmail() );
+        agent.setUsername(signUpRequest.getUsername());
+        agent.setFiliation( filiation );
 
         agent.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         Role agentRole = roleRepository.findByName(RoleName.USER)
@@ -72,6 +80,6 @@ public class AuthController {
 //                .fromCurrentContextPath().path("/agent/{username}")
 //                .buildAndExpand(res.getUsername()).toUri();
 
-        return ResponseEntity.ok().body(agentRepository.save(res));
+        return ResponseEntity.ok().body(res);
     }
 }
