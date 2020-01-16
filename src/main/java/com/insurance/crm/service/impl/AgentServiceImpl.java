@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,6 @@ public class AgentServiceImpl implements AgentService {
     public List<Agent> getAgents() {
         return agentRepository.findAll();
     }
-    @Transactional
     public Agent create(Agent agent) {
         log.info(LogMessage.IN_SAVE,agent);
         return agentRepository.save(agent);
@@ -41,21 +39,8 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public Agent update(Agent dto) {
-  log.info(LogMessage.IN_UPDATE);
-    return  agentRepository.save(dto);
-//    return agentRepository.findById(id)
-//            .map(agent -> {
-//                agent.setSurname(dto.getSurname());
-//                agent.setFirstname(dto.getFirstname());
-//                agent.setPatronymic(dto.getPatronymic());
-//                agent.setPassword(dto.getPassword());
-//                agent.setAge(dto.getAge());
-//                agent.setFiliation(filiationRepository.findById(dto.getFiliation().getId()).get());
-//                return agentRepository.save(agent);
-//            })
-//            .orElseThrow(()-> new NotUpdatedException(ErrorMessage.AGENT_NOT_UPDATED));
-
-
+        log.info(LogMessage.IN_UPDATE);
+            return  agentRepository.save(dto);
     }
 
 
