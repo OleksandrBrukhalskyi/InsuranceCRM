@@ -17,7 +17,7 @@ public class Filiation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "filiaiton_id")
-    private Long filiation_id;
+    private Long filiationId;
     @Column(name = "name",nullable = false,length = 30)
     private String name;
     @Column(name = "address",nullable = false,length = 30)
