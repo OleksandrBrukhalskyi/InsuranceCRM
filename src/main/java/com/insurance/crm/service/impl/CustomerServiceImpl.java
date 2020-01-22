@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -52,9 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> getById(Long id) {
+    public Customer getById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID, id);
-        return Optional.ofNullable(customerRepository.findById(id)
+        return (customerRepository.findById(id)
                 .orElseThrow(() -> new BadIdException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + id)));
     }
 
