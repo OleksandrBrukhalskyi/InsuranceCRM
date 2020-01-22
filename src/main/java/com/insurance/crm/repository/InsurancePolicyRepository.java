@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicy,Long> {
-    InsurancePolicy findInsurancePolicyBySignDate(String sign_date);
+    InsurancePolicy findInsurancePolicyBySignDate(String signDate);
     List<InsurancePolicy> findInsurancePolicyByInsuranceTypeTag(String tag);
 }
