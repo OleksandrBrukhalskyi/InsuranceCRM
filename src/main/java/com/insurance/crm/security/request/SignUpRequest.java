@@ -1,12 +1,9 @@
-package com.insurance.crm.security;
-
-import javax.validation.constraints.Email;
+package com.insurance.crm.security.request;
 
 public class SignUpRequest {
     private String surname;
     private String firstname;
     private String patronymic;
-    @Email
     private String email;
     private String username;
     private String password;

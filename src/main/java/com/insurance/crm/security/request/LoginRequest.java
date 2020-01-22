@@ -1,4 +1,4 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.request;
 
 public class LoginRequest {
     private String username;

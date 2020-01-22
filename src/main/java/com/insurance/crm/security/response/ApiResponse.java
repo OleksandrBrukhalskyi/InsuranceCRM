@@ -1,4 +1,4 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.response;
 
 public class ApiResponse {
     private Boolean success;

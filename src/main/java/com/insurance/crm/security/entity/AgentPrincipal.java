@@ -1,4 +1,4 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.insurance.crm.entity.Agent;

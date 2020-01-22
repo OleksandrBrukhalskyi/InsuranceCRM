@@ -1,10 +1,12 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.provider;
 
+import com.insurance.crm.security.entity.AgentPrincipal;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -29,6 +31,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS512,jwtSecret)
                 .compact();
     }
+    @Transactional
     public Long getAgentIdFromJWT(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)

@@ -1,4 +1,4 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.controller;
 
 import com.insurance.crm.entity.Agent;
 import com.insurance.crm.entity.Filiation;
@@ -7,6 +7,11 @@ import com.insurance.crm.entity.enums.RoleName;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.RoleRepository;
+import com.insurance.crm.security.provider.JwtTokenProvider;
+import com.insurance.crm.security.request.LoginRequest;
+import com.insurance.crm.security.request.SignUpRequest;
+import com.insurance.crm.security.response.ApiResponse;
+import com.insurance.crm.security.response.JwtAuthenticationResponse;
 import com.insurance.crm.service.FiliationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,10 +81,6 @@ public class AuthController {
                 .orElseThrow(() -> new NotFoundException("User Role not set."));
         agent.setRoles(Collections.singleton(agentRole));
         Agent res = agentRepository.save(agent);
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentContextPath().path("/agent/{username}")
-//                .buildAndExpand(res.getUsername()).toUri();
-
         return ResponseEntity.ok().body(res);
     }
 }

@@ -1,4 +1,4 @@
-package com.insurance.crm.security;
+package com.insurance.crm.security.annotation;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
