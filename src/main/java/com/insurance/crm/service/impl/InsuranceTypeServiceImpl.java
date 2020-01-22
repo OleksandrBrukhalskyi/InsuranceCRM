@@ -1,7 +1,9 @@
 package com.insurance.crm.service.impl;
 
+import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.entity.InsuranceType;
+import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.InsuranceTypeRepository;
 import com.insurance.crm.service.InsuranceTypeService;
 import lombok.AllArgsConstructor;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 
@@ -50,9 +51,10 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
     }
 
     @Override
-    public Optional<InsuranceType> findById(Long id) {
+    public InsuranceType findById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID,id);
-        return insuranceTypeRepository.findById(id);
+        return insuranceTypeRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_TYPE_NOT_FOUND_BY_ID + id));
     }
 
     @Override
