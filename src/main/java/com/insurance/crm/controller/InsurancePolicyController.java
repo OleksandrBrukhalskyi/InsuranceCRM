@@ -2,9 +2,17 @@ package com.insurance.crm.controller;
 
 import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
+import com.insurance.crm.entity.Agent;
+import com.insurance.crm.entity.Customer;
 import com.insurance.crm.entity.InsurancePolicy;
+import com.insurance.crm.entity.InsuranceType;
 import com.insurance.crm.exception.NotFoundException;
+import com.insurance.crm.forms.InsurancePolicyForm;
+import com.insurance.crm.security.entity.AgentPrincipal;
+import com.insurance.crm.service.impl.AgentServiceImpl;
+import com.insurance.crm.service.impl.CustomerServiceImpl;
 import com.insurance.crm.service.impl.InsurancePolicyServiceImpl;
+import com.insurance.crm.service.impl.InsuranceTypeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -23,6 +31,12 @@ import java.util.List;
 public class InsurancePolicyController {
     @Autowired
     private InsurancePolicyServiceImpl insurancePolicyService;
+    @Autowired
+    private AgentServiceImpl agentService;
+    @Autowired
+    private CustomerServiceImpl customerService;
+    @Autowired
+    private InsuranceTypeServiceImpl insuranceTypeService;
 
     @ApiOperation(value = "Create InsurancePolicy")
     @ApiResponses(value = {
@@ -31,10 +45,20 @@ public class InsurancePolicyController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping
-    public ResponseEntity save(@Valid @RequestBody InsurancePolicy dto){
+    @PostMapping("/add")
+    public ResponseEntity save(@Valid @RequestBody InsurancePolicyForm form){
+        Agent agent = agentService.getById(form.getAgent());
+        Customer customer = customerService.getById(form.getCustomer());
+        InsuranceType insuranceType = insuranceTypeService.findById(form.getInsuranceType());
+
+        InsurancePolicy insurancePolicy = new InsurancePolicy();
+        insurancePolicy.setSignDate(form.getSignDate());
+        insurancePolicy.setExpiryDate(form.getExpiryDate());
+        insurancePolicy.setInsuranceType(insuranceType);
+        insurancePolicy.setAgent(agent);
+        insurancePolicy.setCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(insurancePolicyService.create(dto));
+                .body(insurancePolicyService.create(insurancePolicy));
     }
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = HttpStatuses.OK),
@@ -43,11 +67,19 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @ApiOperation(value = "Update InsurancePolicy")
-    @PutMapping("/{policyId}")
-    public ResponseEntity<InsurancePolicy> update(@Valid @RequestBody InsurancePolicy dto,
-                                                           @PathVariable Long policyId){
+    @PostMapping("/update")
+    public ResponseEntity<InsurancePolicy> update(@Valid @RequestBody InsurancePolicyForm form){
+        Agent agent = agentService.getById(form.getAgent());
+        Customer customer = customerService.getById(form.getCustomer());
+        InsuranceType insuranceType = insuranceTypeService.findById(form.getInsuranceType());
+        InsurancePolicy insurancePolicy = new InsurancePolicy();
+        insurancePolicy.setSignDate(form.getSignDate());
+        insurancePolicy.setExpiryDate(form.getExpiryDate());
+        insurancePolicy.setInsuranceType(insuranceType);
+        insurancePolicy.setAgent(agent);
+        insurancePolicy.setCustomer(customer);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(insurancePolicyService.update(dto,policyId));
+                .body(insurancePolicyService.update(insurancePolicy));
     }
     @ApiOperation(value = "Get all Policies")
     @ApiResponses(value = {
@@ -57,8 +89,8 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @GetMapping
-    public List<InsurancePolicy> getAllPolicies(){
-        return insurancePolicyService.getInsurancePolicies();
+    public List<InsurancePolicy> getAllPolicies(AgentPrincipal agentPrincipal){
+        return insurancePolicyService.getInsurancePolicies(agentPrincipal);
     }
     @ApiOperation("Get Policy by id")
     @ApiResponses(value = {
@@ -67,8 +99,8 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @GetMapping("/{id}")
-    public InsurancePolicy getbyId(@PathVariable Long id){
-        return insurancePolicyService.findById(id)
+    public InsurancePolicy getbyId(@PathVariable Long id,AgentPrincipal agentPrincipal){
+        return insurancePolicyService.findById(id,agentPrincipal)
                 .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
     }
     @ApiOperation(value = "Delete Policy")
@@ -79,8 +111,8 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id){
-        insurancePolicyService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id,AgentPrincipal agentPrincipal){
+        insurancePolicyService.delete(id,agentPrincipal);
         return ResponseEntity.ok().build();
     }
 
