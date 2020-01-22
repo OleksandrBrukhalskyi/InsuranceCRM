@@ -1,9 +1,8 @@
 package com.insurance.crm.controller;
 
-import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.entity.InsuranceType;
-import com.insurance.crm.exception.NotFoundException;
+import com.insurance.crm.forms.InsuranceTypeForm;
 import com.insurance.crm.service.impl.InsuranceTypeServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,10 +30,14 @@ public class InsuranceTypeController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping
-    public ResponseEntity save(@Valid @RequestBody InsuranceType dto){
+     @PostMapping("/add")
+    public ResponseEntity save(@Valid @RequestBody InsuranceTypeForm form){
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setName(form.getName());
+        insuranceType.setTag(form.getTag());
+        insuranceType.setSumInsured(form.getSumInsured());
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(insuranceTypeService.create(dto));
+                .body(insuranceTypeService.create(insuranceType));
     }
     @ApiOperation(value = "Update InsuranceType")
     @ApiResponses(value = {
@@ -43,11 +46,14 @@ public class InsuranceTypeController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PutMapping("/{id}")
-    public ResponseEntity<InsuranceType> update(@Valid @RequestBody InsuranceType dto,
-                                                         @PathVariable Long id){
+    @PostMapping("/update")
+    public ResponseEntity<InsuranceType> update(@Valid @RequestBody InsuranceTypeForm form){
+        InsuranceType insuranceType = new InsuranceType();
+        insuranceType.setName(form.getName());
+        insuranceType.setTag(form.getTag());
+        insuranceType.setSumInsured(form.getSumInsured());
         return ResponseEntity.status(HttpStatus.OK)
-                .body(insuranceTypeService.update(dto,id));
+                .body(insuranceTypeService.update(insuranceType));
     }
     @ApiOperation(value = "Get all InsuranceTypes")
     @ApiResponses(value = {
@@ -68,8 +74,7 @@ public class InsuranceTypeController {
     })
     @GetMapping("/{id}")
     public InsuranceType getById(@PathVariable Long id){
-        return  insuranceTypeService.findById(id)
-                .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_TYPE_NOT_FOUND_BY_ID));
+        return  insuranceTypeService.findById(id);
     }
     @ApiOperation(value = "Delete InsuranceType")
     @ApiResponses(value = {
