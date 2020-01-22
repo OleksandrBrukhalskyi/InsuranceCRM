@@ -45,7 +45,7 @@ public class AuthController {
     @Autowired
     RoleRepository roleRepository;
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity signIn(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -62,7 +62,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity signUp(@Valid @RequestBody SignUpRequest signUpRequest){
         if(agentRepository.existsByUsername(signUpRequest.getUsername())){
             return new ResponseEntity(new ApiResponse(false,"Username is already taken"),
                     HttpStatus.BAD_REQUEST);
