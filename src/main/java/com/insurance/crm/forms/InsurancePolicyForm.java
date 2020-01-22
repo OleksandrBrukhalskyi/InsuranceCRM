@@ -3,15 +3,13 @@ package com.insurance.crm.forms;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 public class InsurancePolicyForm {
     private String id;
-    private LocalDate signDate;
+    private String signDate;
     private String expiryDate;
-    private String customer;
-    private String agent;
-    private String insuranceType;
+    private Long customer;
+    private Long agent;
+    private Long insuranceType;
 }
