@@ -1,9 +1,7 @@
 package com.insurance.crm.controller;
 
-import com.insurance.crm.constant.ErrorMessage;
 import com.insurance.crm.constant.HttpStatuses;
 import com.insurance.crm.entity.Customer;
-import com.insurance.crm.exception.BadIdException;
 import com.insurance.crm.forms.CustomerForm;
 import com.insurance.crm.service.CustomerService;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +29,7 @@ public class CustomerController {
             @ApiResponse(code = 303, message = HttpStatuses.SEE_OTHER),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN),
     })
-    @PostMapping
+   @PostMapping("/add")
     public ResponseEntity save(@Valid @RequestBody CustomerForm form){
         Customer customer = new Customer();
         customer.setSurname(form.getSurname());
@@ -50,8 +48,8 @@ public class CustomerController {
     })
     @GetMapping("/{customerId}")
     public Customer getById(@PathVariable Long customerId){
-        return customerService.getById(customerId)
-                .orElseThrow(()-> new BadIdException(ErrorMessage.CUSTOMER_NOT_FOUND_BY_ID + customerId));
+        return customerService.getById(customerId);
+
     }
     @ApiOperation("Get all customers")
     @ApiResponses(value = {
@@ -71,7 +69,7 @@ public class CustomerController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PutMapping("/{customerId}")
+    @PostMapping("/update")
     public ResponseEntity<Customer> update(@Valid @RequestBody CustomerForm form){
         Customer customer = new Customer();
         customer.setSurname(form.getSurname());
