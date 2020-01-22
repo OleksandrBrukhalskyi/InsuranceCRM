@@ -8,7 +8,6 @@ import com.insurance.crm.security.entity.AgentPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,7 @@ public class CustomAgentDetailsService implements UserDetailsService {
     AgentRepository agentRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String loginOrEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String loginOrEmail){
         Agent agent = agentRepository.findByEmailOrUsername(loginOrEmail,loginOrEmail)
                 .orElseThrow(()-> new NotFoundException("User not found with username or email : " + loginOrEmail));
         return AgentPrincipal.create(agent);
