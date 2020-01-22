@@ -46,7 +46,7 @@ public class FiliationController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PutMapping("/{filiationId}")
+    @PostMapping("/update")
     public ResponseEntity<Filiation> update(@Valid @RequestBody FiliationForm form){
         Filiation filiation = new Filiation();
         filiation.setName(form.getName());
