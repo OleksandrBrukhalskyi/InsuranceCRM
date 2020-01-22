@@ -5,6 +5,7 @@ import com.insurance.crm.constant.LogMessage;
 import com.insurance.crm.entity.Agent;
 import com.insurance.crm.entity.Role;
 import com.insurance.crm.exception.NotDeletedException;
+import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.FiliationRepository;
 import com.insurance.crm.repository.RoleRepository;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -54,9 +54,10 @@ public class AgentServiceImpl implements AgentService {
 
 
     @Override
-    public Optional<Agent> getById(Long id) {
+    public Agent getById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID,id);
-        return agentRepository.findById(id);
+        return agentRepository.findById(id)
+                .orElseThrow(()->new NotFoundException(ErrorMessage.AGENT_NOT_FOUND_BY_ID + id));
     }
 
     @Override
