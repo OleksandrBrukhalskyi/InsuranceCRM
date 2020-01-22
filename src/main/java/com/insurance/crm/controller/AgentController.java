@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/agent")
-
 public class AgentController {
     @Autowired
     private AgentServiceImpl agentService;
@@ -40,12 +38,12 @@ public class AgentController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(agentService.update(dto));
     }
-    @GetMapping(value = "/agent/")
+    @GetMapping
     public List<Agent> getAll(){
         return agentService.getAgents();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Agent>> getById(@PathVariable Long id){
+    public ResponseEntity<Agent> getById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(agentService.getById(id));
     }
