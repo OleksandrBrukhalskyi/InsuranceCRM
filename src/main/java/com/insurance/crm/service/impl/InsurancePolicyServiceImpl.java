@@ -7,6 +7,7 @@ import com.insurance.crm.exception.NotDeletedException;
 import com.insurance.crm.exception.NotFoundException;
 import com.insurance.crm.repository.AgentRepository;
 import com.insurance.crm.repository.InsurancePolicyRepository;
+import com.insurance.crm.security.entity.AgentPrincipal;
 import com.insurance.crm.service.FiliationService;
 import com.insurance.crm.service.InsurancePolicyService;
 import lombok.AllArgsConstructor;
@@ -27,15 +28,15 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     private FiliationService filiationService;
 
     @Override
-    public List<InsurancePolicy> getInsurancePolicies() {
+    public List<InsurancePolicy> getInsurancePolicies(AgentPrincipal agentPrincipal) {
         log.info(LogMessage.IN_FIND_ALL);
         return insurancePolicyRepository.findAll();
     }
 
     @Override
-    public InsurancePolicy create(InsurancePolicy dto) {
-        log.info(LogMessage.IN_SAVE,dto);
-        return insurancePolicyRepository.save(dto);
+    public InsurancePolicy create(InsurancePolicy insurancePolicy) {
+        log.info(LogMessage.IN_SAVE,insurancePolicy);
+        return insurancePolicyRepository.save(insurancePolicy);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
 
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id,AgentPrincipal agentPrincipal) {
         log.info(LogMessage.IN_DELETE_BY_ID,id);
         if(!(insurancePolicyRepository.findById(id).isPresent())){
             throw new NotDeletedException(ErrorMessage.INSURANCE_POLICY_NOT_DELETED + id);
@@ -56,14 +57,14 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
-    public Optional<InsurancePolicy> findById(Long id) {
+    public Optional<InsurancePolicy> findById(Long id,AgentPrincipal agentPrincipal) {
         log.info(LogMessage.IN_FIND_BY_ID,id);
         return Optional.ofNullable(insurancePolicyRepository.findById(id))
                 .orElseThrow(()->new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
     }
 
     @Override
-    public List<InsurancePolicy> getInsurancePoliciesByInsuranceTypeTag(String tag) {
+    public List<InsurancePolicy> getInsurancePoliciesByInsuranceTypeTag(String tag,AgentPrincipal agentPrincipal) {
         return insurancePolicyRepository.findInsurancePolicyByInsuranceTypeTag(tag);
     }
 }
