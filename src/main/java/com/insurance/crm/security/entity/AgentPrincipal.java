@@ -26,7 +26,7 @@ public class AgentPrincipal implements UserDetails {
     private String username;
     @JsonIgnore
     private String password;
-    private Filiation filiation;
+    private transient Filiation filiation;
     private Collection<? extends GrantedAuthority> authorities;
 
     public AgentPrincipal(Long id, String surname, String firstname, String patronymic, String email, String login, String password, Long id1, List<GrantedAuthority> authorities) {
