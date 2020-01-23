@@ -1,11 +1,10 @@
 package com.insurance.crm.constant;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class HttpStatuses {
+
+    private HttpStatuses() {
+    }
+
     public static final String OK = "OK";
     public static final String CREATED = "Created";
 
