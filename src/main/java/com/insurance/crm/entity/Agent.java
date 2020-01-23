@@ -41,11 +41,7 @@ public class Agent {
     private Filiation filiation;
 
 
-    public Agent(String surname, String firstname, String patronymic, String email, String login, String password, Integer age, String role, String agentStatus, Filiation filiation) {
-    }
 
-    public Agent(Long id, String surname, String firstname, String patronymic, String email, String login, String password, Integer age, String role, String agentStatus, Filiation filiation) {
-    }
 
     public Agent(String surname, String firstname, String patronymic, String email, String username, String password, Filiation filiation) {
     }

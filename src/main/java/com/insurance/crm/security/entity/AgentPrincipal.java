@@ -29,8 +29,7 @@ public class AgentPrincipal implements UserDetails {
     private transient Filiation filiation;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public AgentPrincipal(Long id, String surname, String firstname, String patronymic, String email, String login, String password, Long id1, List<GrantedAuthority> authorities) {
-    }
+
 
     public static AgentPrincipal create(Agent agent){
         List<GrantedAuthority> authorities = agent.getRoles().stream().map(role ->
