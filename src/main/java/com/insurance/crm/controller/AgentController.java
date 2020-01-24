@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,6 +25,8 @@ public class AgentController {
     private AgentServiceImpl agentService;
     @Autowired
     private FiliationService filiationService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @ApiOperation(value = "Update Agent info")
     @ApiResponses(value = {
@@ -41,7 +44,7 @@ public class AgentController {
         agent.setPatronymic(form.getPatronymic());
         agent.setUsername(form.getUsername());
         agent.setFiliation(filiation);
-        agent.setPassword(form.getPassword());
+        agent.setPassword(passwordEncoder.encode(form.getPassword()));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(agentService.update(agent));
     }
