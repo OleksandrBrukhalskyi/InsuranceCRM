@@ -57,7 +57,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
-    public Optional<InsurancePolicy> findById(Long id,AgentPrincipal agentPrincipal) {
+    public Optional<InsurancePolicy> findById(Long id) {
         log.info(LogMessage.IN_FIND_BY_ID,id);
         return Optional.ofNullable(insurancePolicyRepository.findById(id))
                 .orElseThrow(()->new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
