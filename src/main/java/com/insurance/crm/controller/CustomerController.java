@@ -69,9 +69,10 @@ public class CustomerController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping("/update")
-    public ResponseEntity<Customer> update(@Valid @RequestBody CustomerForm form){
-        Customer customer = new Customer();
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> update(@Valid @RequestBody CustomerForm form, @PathVariable("id") Long id){
+        //Customer customer = new Customer();
+        Customer customer = customerService.getById(id);
         customer.setSurname(form.getSurname());
         customer.setFirstname(form.getFirstname());
         customer.setPatronymic(form.getPatronymic());
