@@ -67,12 +67,13 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @ApiOperation(value = "Update InsurancePolicy")
-    @PostMapping("/update")
-    public ResponseEntity<InsurancePolicy> update(@Valid @RequestBody InsurancePolicyForm form){
+    @PutMapping("/{id}")
+    public ResponseEntity<InsurancePolicy> update(@Valid @RequestBody InsurancePolicyForm form, @PathVariable("id") Long id){
         Agent agent = agentService.getById(form.getAgent());
         Customer customer = customerService.getById(form.getCustomer());
         InsuranceType insuranceType = insuranceTypeService.findById(form.getInsuranceType());
-        InsurancePolicy insurancePolicy = new InsurancePolicy();
+        InsurancePolicy insurancePolicy = insurancePolicyService.findById(id)
+                .orElseThrow(()-> new RuntimeException(ErrorMessage.INSURANCE_POLICY_NOT_UPDATED + id));
         insurancePolicy.setSignDate(form.getSignDate());
         insurancePolicy.setExpiryDate(form.getExpiryDate());
         insurancePolicy.setInsuranceType(insuranceType);
@@ -99,8 +100,8 @@ public class InsurancePolicyController {
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
     @GetMapping("/{id}")
-    public InsurancePolicy getbyId(@PathVariable Long id,AgentPrincipal agentPrincipal){
-        return insurancePolicyService.findById(id,agentPrincipal)
+    public InsurancePolicy getbyId(@PathVariable Long id){
+        return insurancePolicyService.findById(id)
                 .orElseThrow(()-> new NotFoundException(ErrorMessage.INSURANCE_POLICY_NOT_FOUND_BY_ID + id));
     }
     @ApiOperation(value = "Delete Policy")
