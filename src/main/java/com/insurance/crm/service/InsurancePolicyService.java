@@ -11,6 +11,6 @@ public interface InsurancePolicyService {
     InsurancePolicy create(InsurancePolicy dto);
     InsurancePolicy update(InsurancePolicy dto);
     void delete(Long id,AgentPrincipal agentPrincipal);
-    Optional<InsurancePolicy> findById(Long id,AgentPrincipal agentPrincipal);
+    Optional<InsurancePolicy> findById(Long id);
     List<InsurancePolicy> getInsurancePoliciesByInsuranceTypeTag(String tag,AgentPrincipal agentPrincipal);
 }
