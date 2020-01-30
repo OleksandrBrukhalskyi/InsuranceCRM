@@ -46,9 +46,9 @@ public class InsuranceTypeController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping("/update")
-    public ResponseEntity<InsuranceType> update(@Valid @RequestBody InsuranceTypeForm form){
-        InsuranceType insuranceType = new InsuranceType();
+    @PutMapping("/{id}")
+    public ResponseEntity<InsuranceType> update(@Valid @RequestBody InsuranceTypeForm form,@PathVariable("id") Long id){
+        InsuranceType insuranceType = insuranceTypeService.findById(id);
         insuranceType.setName(form.getName());
         insuranceType.setTag(form.getTag());
         insuranceType.setSumInsured(form.getSumInsured());
