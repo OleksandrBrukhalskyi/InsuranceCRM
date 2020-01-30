@@ -35,10 +35,10 @@ public class AgentController {
             @ApiResponse(code = 400, message = HttpStatuses.BAD_REQUEST),
             @ApiResponse(code = 403, message = HttpStatuses.FORBIDDEN)
     })
-    @PostMapping("/update")
-    public ResponseEntity updateAgent(@Valid @RequestBody AgentForm form){
+    @PutMapping("/{id}")
+    public ResponseEntity updateAgent(@Valid @RequestBody AgentForm form, @PathVariable("id") Long id){
         Filiation filiation =filiationService.findById(form.getFiliation());
-        Agent agent = new Agent();
+        Agent agent = agentService.getById(id);
         agent.setSurname(form.getSurname());
         agent.setFirstname(form.getFirstname());
         agent.setPatronymic(form.getPatronymic());
