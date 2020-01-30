@@ -93,4 +93,8 @@ public class InsuranceTypeController {
     public Map<Object, Long> getQuantOfContractsGroupedByName(){
         return  this.insuranceTypeService.getQuantOfContractsGroupedByName();
     }
+    @GetMapping("/total")
+    public Long getTotal(){
+        return this.insuranceTypeService.getTotalQuantityOfInsuranceTypes();
+    }
 }
