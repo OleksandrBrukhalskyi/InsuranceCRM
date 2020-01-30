@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/type")
@@ -87,5 +88,9 @@ public class InsuranceTypeController {
     public ResponseEntity delete(@PathVariable Long id){
         insuranceTypeService.delete(id);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/quant")
+    public Map<Object, Long> getQuantOfContractsGroupedByName(){
+        return  this.insuranceTypeService.getQuantOfContractsGroupedByName();
     }
 }
