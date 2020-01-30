@@ -73,7 +73,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .antMatchers("/auth/**")
                     .permitAll()
-                    .antMatchers("/agent/**").hasRole("USER")
+                    .antMatchers("/customer/**")
+                    .permitAll()
+                    .antMatchers("/filiation/**")
+                    .permitAll()
+                    .antMatchers("/policy/**")
+                    .permitAll()
+                    .antMatchers("/swagger-resources/**").permitAll()
+                    .antMatchers("/agent/**").permitAll()
+                    .antMatchers("/type/**").permitAll()
                     .anyRequest()
                     .authenticated();
 

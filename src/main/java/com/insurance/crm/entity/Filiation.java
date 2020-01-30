@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Builder
 public class Filiation {
     @Id
@@ -24,6 +23,7 @@ public class Filiation {
     private String address;
     @Column(name = "phone",nullable = false,length = 150)
     private String phone;
+
 
 
 }
