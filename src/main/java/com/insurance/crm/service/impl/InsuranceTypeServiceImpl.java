@@ -68,8 +68,16 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
                 .collect(Collectors.groupingBy(InsuranceType::getName,Collectors.counting()));
     }
     public Long getTotalQuantityOfInsuranceTypes(){
-        return this.getInsuranceTypes().stream()
-                .collect(Collectors.counting());
+        return this.getInsuranceTypes().stream().count();
     }
+    public Map<Double, List<InsuranceType>> groupTypesByInsuranceSum(){
+        return this.getInsuranceTypes().stream()
+                .collect(Collectors.groupingBy(InsuranceType::getSumInsured));
+    }
+    public Map<String,List<InsuranceType>> groupTypesByInsuranceTag(){
+        return this.getInsuranceTypes().stream()
+                .collect(Collectors.groupingBy(InsuranceType::getTag));
+    }
+
 
 }
