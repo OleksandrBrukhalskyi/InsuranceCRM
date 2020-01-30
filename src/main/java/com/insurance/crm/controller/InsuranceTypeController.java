@@ -97,4 +97,12 @@ public class InsuranceTypeController {
     public Long getTotal(){
         return this.insuranceTypeService.getTotalQuantityOfInsuranceTypes();
     }
+    @GetMapping("/group")
+    public Map<Double,List<InsuranceType>> getByGroupedSum(){
+        return this.insuranceTypeService.groupTypesByInsuranceSum();
+    }
+    @GetMapping("/tag")
+    public Map<String,List<InsuranceType>> getByGroupedInsuranceTag(){
+        return this.insuranceTypeService.groupTypesByInsuranceTag();
+    }
 }
