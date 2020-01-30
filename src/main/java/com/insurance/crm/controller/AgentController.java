@@ -37,7 +37,7 @@ public class AgentController {
     })
     @PutMapping("/{id}")
     public ResponseEntity updateAgent(@Valid @RequestBody AgentForm form, @PathVariable("id") Long id){
-        Filiation filiation =filiationService.findById(form.getFiliation());
+        Filiation filiation = filiationService.findById(form.getFiliation());
         Agent agent = agentService.getById(id);
         agent.setSurname(form.getSurname());
         agent.setFirstname(form.getFirstname());
