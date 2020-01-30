@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -61,5 +62,9 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
     public List<InsuranceType> getInsuranceTypeByName(String name) {
         log.info(LogMessage.IN_FIND_BY_INSURANCE_TYPE_NAME,name);
         return insuranceTypeRepository.getInsuranceTypeByName(name);
+    }
+    public Map<Object, Long> getQuantOfContractsGroupedByName(){
+        return  this.getInsuranceTypes().stream()
+                .collect(Collectors.groupingBy(InsuranceType::getName,Collectors.counting()));
     }
 }
